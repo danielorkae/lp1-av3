@@ -1,4 +1,4 @@
-#include "domain/pessoa.hpp"
+#include "entities/pessoa.hpp"
 
 Pessoa::Pessoa()
 {
