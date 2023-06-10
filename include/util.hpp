@@ -1,3 +1,6 @@
+#ifndef UTIL_HPP
+#define UTIL_HPP
+
 #include <string>
 
 typedef struct
@@ -15,3 +18,5 @@ typedef struct
     std::string cep;
     int numero;
 } Endereco;
+
+#endif // UTIL_HPP
