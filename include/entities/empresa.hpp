@@ -102,7 +102,7 @@ public:
     /**
      * @brief Carrega as funções a partir do arquivo "funcoes.txt".
      */
-    void carregaFuncoes();
+    void carregarFuncoes();
 
     /**
      * @brief Carrega os dados da empresa a partir do arquivo "empresa.txt".

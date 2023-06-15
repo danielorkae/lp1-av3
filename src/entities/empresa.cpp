@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include "empresa.hpp"
+#include <filesystem>
+#include "entities/empresa.hpp"
 
 Empresa::Empresa()
     : faturamentoMensal(0.0f) {}
@@ -58,9 +59,115 @@ const std::vector<Gerente> &Empresa::getGerentes() const
     return gerentes;
 }
 
-void Empresa::carregaFuncoes()
+void Empresa::carregarFuncoes()
 {
-    // TODO: Implementar a leitura do arquivo "funcoes.txt" e chamar cada função presente nas linhas do arquivo.
+    try
+    {
+        // Obtém o diretório do arquivo executável
+        std::filesystem::path currentPath = std::filesystem::current_path();
+
+        // Constrói o caminho completo para o arquivo "funcoes.txt"
+        std::filesystem::path filePath = currentPath / "data" / "funcoes.txt";
+
+        // Verifica se o arquivo existe
+        if (!std::filesystem::exists(filePath))
+        {
+            throw std::runtime_error("Erro: arquivo 'funcoes.txt' não encontrado.");
+        }
+
+        // Abre o arquivo em modo de leitura
+        std::ifstream arquivo(filePath);
+        if (!arquivo.is_open())
+        {
+            throw std::runtime_error("Erro ao abrir o arquivo 'funcoes.txt'.");
+        }
+
+        // Lê cada linha do arquivo e executa a função correspondente
+        std::string linha;
+        while (std::getline(arquivo, linha))
+        {
+            if (linha == "carregarEmpresa()")
+            {
+                carregarEmpresa();
+            }
+            else if (linha == "carregarAsg()")
+            {
+                carregarAsg();
+            }
+            else if (linha == "carregarVendedor()")
+            {
+                carregarVendedor();
+            }
+            else if (linha == "carregarGerente()")
+            {
+                carregarGerente();
+            }
+            else if (linha == "carregaDono()")
+            {
+                carregaDono();
+            }
+            else if (linha == "imprimeAsgs()")
+            {
+                imprimeAsgs();
+            }
+            else if (linha == "imprimeVendedores()")
+            {
+                imprimeVendedores();
+            }
+            else if (linha == "imprimeGerentes()")
+            {
+                imprimeGerentes();
+            }
+            else if (linha == "imprimeDono()")
+            {
+                imprimeDono();
+            }
+            else if (linha.find("buscaFuncionario()") == 0)
+            {
+                // Extrai a matrícula do funcionário da próxima linha
+                std::getline(arquivo, linha);
+                int matricula = std::stoi(linha);
+                buscaFuncionario(matricula);
+            }
+            else if (linha.find("calculaSalarioFuncionario()") == 0)
+            {
+                // Extrai a matrícula do funcionário da próxima linha
+                std::getline(arquivo, linha);
+                int matricula = std::stoi(linha);
+                calculaSalarioFuncionario(matricula);
+            }
+            else if (linha == "calculaTodoOsSalarios()")
+            {
+                calculaTodoOsSalarios();
+            }
+            else if (linha.find("calcularRecisao()") == 0)
+            {
+                // Extrai a matrícula, ano, mês e dia da próxima linha
+                std::string matriculaStr, anoStr, mesStr, diaStr;
+                std::getline(arquivo, matriculaStr);
+                std::getline(arquivo, anoStr);
+                std::getline(arquivo, mesStr);
+                std::getline(arquivo, diaStr);
+                int matricula = std::stoi(matriculaStr);
+                int ano = std::stoi(anoStr);
+                int mes = std::stoi(mesStr);
+                int dia = std::stoi(diaStr);
+                Data desligamento{ano, mes, dia};
+                calcularRecisao(matricula, desligamento);
+            }
+            else
+            {
+                throw std::runtime_error("Erro: função desconhecida: " + linha);
+            }
+        }
+
+        // Fecha o arquivo
+        arquivo.close();
+    }
+    catch (const std::exception &ex)
+    {
+        std::cout << "Erro ao executar as funções: " << ex.what() << std::endl;
+    }
 }
 
 void Empresa::carregarEmpresa()
