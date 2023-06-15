@@ -3,23 +3,23 @@
 
 #include <string>
 #include <vector>
-#include "entities/asg.hpp"
-#include "entities/vendedor.hpp"
-#include "entities/gerente.hpp"
+#include "pessoa.hpp"
+#include "asg.hpp"
+#include "vendedor.hpp"
+#include "gerente.hpp"
 
 /**
- * @brief Classe que representa uma Empresa de Calçados.
+ * @brief Classe que representa uma Empresa.
  */
-class Empresa
-{
+class Empresa {
 private:
-    float faturamentoMensal;          /**< Faturamento mensal da empresa. */
-    std::string nomeEmpresa;          /**< Nome da empresa. */
-    std::string cnpj;                 /**< CNPJ da empresa. */
-    Pessoa dono;                      /**< Dono da empresa. */
-    std::vector<Asg> asgs;            /**< Lista de ASGs da empresa. */
-    std::vector<Vendedor> vendedores; /**< Lista de vendedores da empresa. */
-    std::vector<Gerente> gerentes;    /**< Lista de gerentes da empresa. */
+    float faturamentoMensal; /**< Faturamento mensal da empresa */
+    std::string nomeEmpresa; /**< Nome da empresa */
+    std::string cnpj; /**< CNPJ da empresa */
+    Pessoa dono; /**< Dono da empresa */
+    std::vector<Asg> asgs; /**< Vetor de ASGs */
+    std::vector<Vendedor> vendedores; /**< Vetor de Vendedores */
+    std::vector<Gerente> gerentes; /**< Vetor de Gerentes */
 
 public:
     /**
@@ -28,23 +28,24 @@ public:
     Empresa();
 
     /**
-     * @brief Construtor que inicializa uma Empresa com todos os parâmetros.
-     * @param faturamentoMensal O faturamento mensal da empresa.
+     * @brief Construtor que inicializa uma empresa com os atributos fornecidos.
      * @param nomeEmpresa O nome da empresa.
      * @param cnpj O CNPJ da empresa.
-     * @param dono O dono da empresa.
+     * @param faturamentoMensal O faturamento mensal da empresa.
      */
-    Empresa(float faturamentoMensal, std::string nomeEmpresa, std::string cnpj, const Pessoa &dono);
+    Empresa(const std::string& nomeEmpresa, const std::string& cnpj, float faturamentoMensal);
+
+    // Métodos de acesso
 
     /**
      * @brief Obtém o faturamento mensal da empresa.
-     * @return O faturamento mensal.
+     * @return O faturamento mensal da empresa.
      */
     float getFaturamentoMensal() const;
 
     /**
      * @brief Define o faturamento mensal da empresa.
-     * @param faturamentoMensal O faturamento mensal.
+     * @param faturamentoMensal O faturamento mensal da empresa.
      */
     void setFaturamentoMensal(float faturamentoMensal);
 
@@ -58,7 +59,7 @@ public:
      * @brief Define o nome da empresa.
      * @param nomeEmpresa O nome da empresa.
      */
-    void setNomeEmpresa(const std::string &nomeEmpresa);
+    void setNomeEmpresa(const std::string& nomeEmpresa);
 
     /**
      * @brief Obtém o CNPJ da empresa.
@@ -70,49 +71,107 @@ public:
      * @brief Define o CNPJ da empresa.
      * @param cnpj O CNPJ da empresa.
      */
-    void setCnpj(const std::string &cnpj);
+    void setCnpj(const std::string& cnpj);
 
     /**
      * @brief Obtém o dono da empresa.
      * @return O dono da empresa.
      */
-    Pessoa getDono() const;
+    const Pessoa& getDono() const;
 
     /**
-     * @brief Define o dono da empresa.
-     * @param dono O dono da empresa.
+     * @brief Obtém o vetor de ASGs da empresa.
+     * @return O vetor de ASGs da empresa.
      */
-    void setDono(const Pessoa &dono);
+    const std::vector<Asg>& getAsgs() const;
 
     /**
-     * @brief Carrega os dados da empresa a partir de um arquivo.
-     * @param nomeArquivo O nome do arquivo a ser carregado.
-     * @return True se os dados foram carregados com sucesso, False caso contrário.
+     * @brief Obtém o vetor de Vendedores da empresa.
+     * @return O vetor de Vendedores da empresa.
      */
-    bool carregarDados(const std::string &nomeArquivo);
+    const std::vector<Vendedor>& getVendedores() const;
 
     /**
-     * @brief Imprime os atributos da empresa.
+     * @brief Obtém o vetor de Gerentes da empresa.
+     * @return O vetor de Gerentes da empresa.
      */
-    void imprimirAtributos() const;
+    const std::vector<Gerente>& getGerentes() const;
+
+    // Métodos
+
+    /**
+     * @brief Carrega as funções a partir do arquivo "funcoes.txt".
+     */
+    void carregaFuncoes();
+
+    /**
+     * @brief Carrega os dados da empresa a partir do arquivo "empresa.txt".
+     */
+    void carregarEmpresa();
+
+    /**
+     * @brief Carrega os dados dos ASGs a partir do arquivo "asg.txt".
+     */
+    void carregarAsg();
+
+    /**
+     * @brief Carrega os dados dos Vendedores a partir do arquivo "vendedor.txt".
+     */
+    void carregarVendedor();
+
+    /**
+     * @brief Carrega os dados dos Gerentes a partir do arquivo "gerente.txt".
+     */
+    void carregarGerente();
+
+    /**
+     * @brief Carrega os dados do dono a partir do arquivo "dono.txt".
+     */
+    void carregaDono();
+
+    /**
+     * @brief Imprime os atributos de todos os ASGs.
+     */
+    void imprimeAsgs();
+
+    /**
+     * @brief Imprime os atributos de todos os Vendedores.
+     */
+    void imprimeVendedores();
+
+    /**
+     * @brief Imprime os atributos de todos os Gerentes.
+     */
+    void imprimeGerentes();
+
+    /**
+     * @brief Imprime os atributos do dono.
+     */
+    void imprimeDono();
 
     /**
      * @brief Busca um funcionário pelo número de matrícula.
-     * @param matricula A matrícula do funcionário a ser buscado.
-     * @return O ponteiro para o funcionário encontrado, ou nullptr se não encontrado.
+     * @param matricula O número de matrícula do funcionário a ser buscado.
      */
-    Funcionario *buscarFuncionarioPorMatricula(const std::string &matricula);
+    void buscaFuncionario(int matricula);
 
     /**
-     * @brief Calcula os salários de todos os funcionários da empresa.
+     * @brief Calcula o salário de um funcionário pelo número de matrícula.
+     * @param matricula O número de matrícula do funcionário.
      */
-    void calcularSalarios();
+    void calculaSalarioFuncionario(int matricula);
 
     /**
-     * @brief Calcula as rescisões de todos os funcionários da empresa com base na data de desligamento.
-     * @param desligamento A data de desligamento dos funcionários.
+     * @brief Calcula os salários de todos os funcionários e salva os resultados em um arquivo.
      */
-    void calcularRecisoes(const Data &desligamento);
+    void calculaTodoOsSalarios();
+
+    /**
+     * @brief Calcula o valor da rescisão de um funcionário pelo número de matrícula e data de desligamento.
+     * @param matricula O número de matrícula do funcionário.
+     * @param desligamento A data de desligamento do funcionário.
+     */
+    void calcularRecisao(int matricula, const Data& desligamento);
 };
 
 #endif // EMPRESA_HPP

@@ -1,16 +1,13 @@
 #include <iostream>
 #include <fstream>
-#include <sstream>
-#include "entities/empresa.hpp"
+#include "empresa.hpp"
 
-// Implementação dos construtores
 Empresa::Empresa()
-    : faturamentoMensal(0.0), nomeEmpresa(""), cnpj(""), dono(), asgs(), vendedores(), gerentes() {}
+    : faturamentoMensal(0.0f) {}
 
-Empresa::Empresa(float faturamentoMensal, const std::string &nomeEmpresa, const std::string &cnpj, const Pessoa &dono)
-    : faturamentoMensal(faturamentoMensal), nomeEmpresa(nomeEmpresa), cnpj(cnpj), dono(dono), asgs(), vendedores(), gerentes() {}
+Empresa::Empresa(const std::string &nomeEmpresa, const std::string &cnpj, float faturamentoMensal)
+    : nomeEmpresa(nomeEmpresa), cnpj(cnpj), faturamentoMensal(faturamentoMensal) {}
 
-// Implementação dos getters e setters
 float Empresa::getFaturamentoMensal() const
 {
     return faturamentoMensal;
@@ -41,85 +38,96 @@ void Empresa::setCnpj(const std::string &cnpj)
     this->cnpj = cnpj;
 }
 
-Pessoa Empresa::getDono() const
+const Pessoa &Empresa::getDono() const
 {
     return dono;
 }
 
-void Empresa::setDono(const Pessoa &dono)
+const std::vector<Asg> &Empresa::getAsgs() const
 {
-    this->dono = dono;
+    return asgs;
 }
 
-// Implementação dos métodos
-bool Empresa::carregarDados(const std::string &nomeArquivo)
+const std::vector<Vendedor> &Empresa::getVendedores() const
 {
-    std::ifstream arquivo(nomeArquivo);
-    if (!arquivo)
-    {
-        std::cout << "Erro ao abrir o arquivo " << nomeArquivo << std::endl;
-        return false;
-    }
-
-    // TODO: Implementar a leitura dos dados do arquivo e preencher os vetores de ASGs, vendedores e gerentes
-
-    arquivo.close();
-    return true;
+    return vendedores;
 }
 
-void Empresa::imprimirAtributos() const
+const std::vector<Gerente> &Empresa::getGerentes() const
 {
-    std::cout << "Nome da empresa: " << nomeEmpresa << std::endl;
-    std::cout << "CNPJ: " << cnpj << std::endl;
-    std::cout << "Faturamento mensal: R$" << faturamentoMensal << std::endl;
-    std::cout << "Dono da empresa: " << dono.getNome() << std::endl;
-
-    // TODO: Imprimir os atributos dos ASGs, vendedores e gerentes
+    return gerentes;
 }
 
-Funcionario *Empresa::buscarFuncionarioPorMatricula(const std::string &matricula)
+void Empresa::carregaFuncoes()
 {
-    for (auto &asg : asgs)
-    {
-        if (asg.getMatricula() == matricula)
-        {
-            return &asg;
-        }
-    }
-
-    for (auto &vendedor : vendedores)
-    {
-        if (vendedor.getMatricula() == matricula)
-        {
-            return &vendedor;
-        }
-    }
-
-    for (auto &gerente : gerentes)
-    {
-        if (gerente.getMatricula() == matricula)
-        {
-            return &gerente;
-        }
-    }
-
-    return nullptr; // Funcionário não encontrado
+    // TODO: Implementar a leitura do arquivo "funcoes.txt" e chamar cada função presente nas linhas do arquivo.
 }
 
-void Empresa::calcularSalarios()
+void Empresa::carregarEmpresa()
 {
-    // TODO: Calcular salários dos ASGs
-
-    // TODO: Calcular salários dos vendedores
-
-    // TODO: Calcular salários dos gerentes
+    // TODO: Implementar a leitura do arquivo "empresa.txt" e carregar os dados da empresa.
 }
 
-void Empresa::calcularRecisoes(const Data &desligamento)
+void Empresa::carregarAsg()
 {
-    // TODO: Calcular rescisões dos ASGs
+    // TODO: Implementar a leitura do arquivo "asg.txt" e carregar os dados dos ASGs.
+}
 
-    // TODO: Calcular rescisões dos vendedores
+void Empresa::carregarVendedor()
+{
+    // TODO: Implementar a leitura do arquivo "vendedor.txt" e carregar os dados dos Vendedores.
+}
 
-    // TODO: Calcular rescisões dos gerentes
+void Empresa::carregarGerente()
+{
+    // TODO: Implementar a leitura do arquivo "gerente.txt" e carregar os dados dos Gerentes.
+}
+
+void Empresa::carregaDono()
+{
+    // TODO: Implementar a leitura do arquivo "dono.txt" e carregar os dados do dono.
+}
+
+void Empresa::imprimeAsgs()
+{
+    // TODO: Implementar a função para imprimir os atributos de todos os ASGs.
+}
+
+void Empresa::imprimeVendedores()
+{
+    // TODO: Implementar a função para imprimir os atributos de todos os Vendedores.
+}
+
+void Empresa::imprimeGerentes()
+{
+    // TODO: Implementar a função para imprimir os atributos de todos os Gerentes.
+}
+
+void Empresa::imprimeDono()
+{
+    // TODO: Implementar a função para imprimir os atributos do dono.
+}
+
+void Empresa::buscaFuncionario(int matricula)
+{
+    // TODO: Implementar a função para buscar um funcionário pelo número de matrícula.
+    // Caso não encontre, imprimir a mensagem "Funcionário não encontrado no sistema".
+}
+
+void Empresa::calculaSalarioFuncionario(int matricula)
+{
+    // TODO: Implementar a função para calcular o salário de um funcionário pelo número de matrícula.
+    // Caso não encontre, imprimir a mensagem "Funcionário não encontrado no sistema".
+}
+
+void Empresa::calculaTodoOsSalarios()
+{
+    // TODO: Implementar a função para calcular os salários de todos os funcionários e salvar os resultados em um arquivo.
+    // Os resultados também devem ser mostrados no console.
+}
+
+void Empresa::calcularRecisao(int matricula, const Data &desligamento)
+{
+    // TODO: Implementar a função para calcular o valor da rescisão de um funcionário pelo número de matrícula e data de desligamento.
+    // Caso não encontre, imprimir a mensagem "Funcionário não encontrado no sistema".
 }
