@@ -2,7 +2,7 @@
 
 # Compilador e flags
 CC = g++
-CFLAGS = -Wall -std=c++11 -MMD -I./include
+CFLAGS = -Wall -std=c++17 -MMD -I./include
 
 # Nome do programa e diretórios
 PROGRAM = program
