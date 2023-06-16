@@ -480,7 +480,7 @@ void Empresa::carregaDono()
 {
     try
     {
-        fstream arquivo = abrirArquivo("data/dono.txt");
+        fstream arquivo = abrirArquivo("dono.txt");
 
         string linha;
         while (getline(arquivo, linha))
