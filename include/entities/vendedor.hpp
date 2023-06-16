@@ -32,7 +32,7 @@ public:
      * @param tipoVendedor O tipo de vendedor.
      */
     Vendedor(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal,
-             std::string estadoCivil, int qtdFilhos, std::string salario, std::string matricula,
+             std::string estadoCivil, int qtdFilhos, float salario, std::string matricula,
              Data ingressoEmpresa, char tipoVendedor);
 
     /**
@@ -52,14 +52,14 @@ public:
      * @param diasFaltas O número de dias de faltas do Vendedor.
      * @return O salário calculado.
      */
-    double calcularSalario(int diasFaltas) override;
+    float calcularSalario(int diasFaltas) override;
 
     /**
      * @brief Calcula a rescisão do Vendedor com base na data de desligamento.
      * @param desligamento A data de desligamento do Vendedor.
      * @return O valor da rescisão calculado.
      */
-    double calcularRecisao(Data desligamento) override;
+    float calcularRecisao(Data desligamento) override;
 };
 
 #endif // VENDEDOR_HPP
