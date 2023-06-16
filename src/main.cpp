@@ -6,8 +6,8 @@ int main()
     // Criar uma instância da classe Empresa dinamicamente
     Empresa *empresa = new Empresa();
 
-    // Chamar a função carregarDados()
-    empresa->carregarDados("dados_empresa.txt");
+    // Chamar a função carregarFuncoes()
+    empresa->carregarFuncoes();
 
     // Resto do código...
 
