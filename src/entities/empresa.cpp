@@ -2,7 +2,7 @@
 
 using namespace std;
 
-ifstream abrirArquivo(string nomeArquivo);
+fstream abrirArquivo(string nomeArquivo);
 
 Empresa::Empresa()
 {
@@ -67,7 +67,7 @@ vector<Gerente> &Empresa::getGerentes()
     return gerentes;
 }
 
-ifstream abrirArquivo(string nomeArquivo)
+fstream abrirArquivo(string nomeArquivo)
 {
     try
     {
@@ -77,20 +77,23 @@ ifstream abrirArquivo(string nomeArquivo)
         // Constrói o caminho completo para o arquivo
         filesystem::path filePath = currentPath / "data" / nomeArquivo;
 
+        cout << "Tentando Abrir o arquivo: " << filePath << endl;
+
         // Verifica se o arquivo existe
         if (!filesystem::exists(filePath))
         {
             throw runtime_error("Erro: arquivo " + nomeArquivo + " não encontrado.");
         }
 
-        ifstream arquivo(nomeArquivo);
+        fstream file;
+        file.open(filePath, ios::in | ios::app);
 
-        if (!arquivo.is_open())
+        if (!file.is_open())
         {
             throw runtime_error("Erro ao abrir o arquivo: " + nomeArquivo);
         }
 
-        return arquivo;
+        return file;
     }
     catch (const exception &ex)
     {
@@ -104,7 +107,7 @@ void Empresa::carregarFuncoes()
     try
     {
         // Abre o arquivo em modo de leitura
-        ifstream arquivo = abrirArquivo("funcoes.txt");
+        fstream arquivo = abrirArquivo("funcoes.txt");
 
         // Lê cada linha do arquivo e executa a função correspondente
         string linha;
@@ -196,7 +199,7 @@ void Empresa::carregarFuncoes()
 
 void Empresa::carregarEmpresa()
 {
-    ifstream file = abrirArquivo("empresa.txt");
+    fstream file = abrirArquivo("empresa.txt");
 
     string line;
     // Ignora as linhas de separação iniciais
@@ -224,13 +227,13 @@ void Empresa::carregarEmpresa()
     file.close();
 }
 
-void carregarAsg()
+void Empresa::carregarAsg()
 {
     vector<Asg> asgs;
 
     try
     {
-        ifstream arquivo = abrirArquivo("asg.txt");
+        fstream arquivo = abrirArquivo("asg.txt");
 
         string linha;
         while (getline(arquivo, linha))
@@ -307,13 +310,13 @@ void carregarAsg()
     // TODO: adicionar o setAsgs(asgs) na classe Empresa
 }
 
-void carregarVendedor()
+void Empresa::carregarVendedor()
 {
     vector<Vendedor> vendedores;
 
     try
     {
-        ifstream arquivo = abrirArquivo("vendedor.txt");
+        fstream arquivo = abrirArquivo("vendedor.txt");
 
         string linha;
         while (getline(arquivo, linha))
@@ -390,13 +393,13 @@ void carregarVendedor()
     // TODO: adicionar o setVendedores(vendedores) na classe Empresa
 }
 
-void carregarGerente()
+void Empresa::carregarGerente()
 {
     vector<Gerente> gerentes;
 
     try
     {
-        ifstream arquivo = abrirArquivo("gerente.txt");
+        fstream arquivo = abrirArquivo("gerente.txt");
 
         string linha;
         while (getline(arquivo, linha))
@@ -473,11 +476,11 @@ void carregarGerente()
     // TODO: Adicionar o vetor de gerentes à classe Empresa
 }
 
-void carregarDono()
+void Empresa::carregaDono()
 {
     try
     {
-        ifstream arquivo("data/dono.txt");
+        fstream arquivo = abrirArquivo("data/dono.txt");
 
         string linha;
         while (getline(arquivo, linha))
