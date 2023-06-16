@@ -160,7 +160,7 @@ public:
      * @brief Busca um funcionário pelo número de matrícula.
      * @param matricula O número de matrícula do funcionário a ser buscado.
      */
-    void buscaFuncionario(string matricula);
+    Funcionario *buscaFuncionario(string matricula);
 
     /**
      * @brief Calcula o salário de um funcionário pelo número de matrícula.
@@ -171,7 +171,7 @@ public:
     /**
      * @brief Calcula os salários de todos os funcionários e salva os resultados em um arquivo.
      */
-    void calculaTodosSalarios();
+    void calculaTodoOsSalarios();
 
     /**
      * @brief Calcula o valor da rescisão de um funcionário pelo número de matrícula e data de desligamento.

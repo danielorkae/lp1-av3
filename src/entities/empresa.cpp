@@ -163,7 +163,7 @@ void Empresa::carregarFuncoes()
             }
             else if (linha == "calculaTodoOsSalarios()")
             {
-                calculaTodosSalarios();
+                calculaTodoOsSalarios();
             }
             else if (linha.find("calcularRecisao()") == 0 || linha.find("calcularRescisao()") == 0)
             {
@@ -552,26 +552,113 @@ void Empresa::imprimeDono()
     dono.imprimirDados();
 }
 
-void Empresa::buscaFuncionario(string matricula)
+Funcionario *Empresa::buscaFuncionario(string matricula)
 {
-    // Busca o funcionário pelo número de matrícula
-    // ...
+    for (auto &asg : asgs)
+    {
+        if (asg.getMatricula() == matricula)
+        {
+            asg.imprimirDados();
+            return &asg;
+        }
+    }
+
+    for (auto &vendedor : vendedores)
+    {
+        if (vendedor.getMatricula() == matricula)
+        {
+            vendedor.imprimirDados();
+            return &vendedor;
+        }
+    }
+
+    for (auto &gerente : gerentes)
+    {
+        if (gerente.getMatricula() == matricula)
+        {
+            gerente.imprimirDados();
+            return &gerente;
+        }
+    }
+
+    cout << "Funcionário não encontrado no sistema" << endl;
+    return nullptr;
 }
 
 void Empresa::calculaSalarioFuncionario(string matricula)
 {
-    // Calcula o salário do funcionário pelo número de matrícula
-    // ...
+    // NOTE: O cálculo do salário é feito com base no número de dias de faltas,
+    // mas as faltas não foi usada em outro lugar do sistema.
+
+    Funcionario *funcionario = buscaFuncionario(matricula);
+
+    if (funcionario != nullptr)
+    {
+        cout << "Salário: " << funcionario->calcularSalario(0) << endl
+             << endl;
+    }
 }
 
-void Empresa::calculaTodosSalarios()
+void Empresa::calculaTodoOsSalarios()
 {
-    // Calcula os salários de todos os funcionários e salva os resultados em um arquivo
-    // ...
+    ofstream arquivo("resultados.txt");
+
+    float totalSalariosASG = 0.0;
+    float totalSalariosVendedores = 0.0;
+    float totalSalariosGerentes = 0.0;
+    float totalSalariosGeral = 0.0;
+
+    arquivo << "Resultados dos cálculos de salários:\n\n";
+
+    // Cálculos para cada ASG
+    arquivo << "ASGs:\n";
+    for (auto &asg : asgs)
+    {
+        float salario = asg.calcularSalario(0);
+        totalSalariosASG += salario;
+        arquivo << "Nome: " << asg.getNome() << ", Cargo: ASG, Salário: " << salario << "\n";
+    }
+    arquivo << "Total de salários de ASGs: " << totalSalariosASG << "\n\n";
+
+    // Cálculos para cada Vendedor
+    arquivo << "Vendedores:\n";
+    for (auto &vendedor : vendedores)
+    {
+        float salario = vendedor.calcularSalario(0);
+        totalSalariosVendedores += salario;
+        arquivo << "Nome: " << vendedor.getNome() << ", Cargo: Vendedor, Salário: " << salario << "\n";
+    }
+    arquivo << "Total de salários de Vendedores: " << totalSalariosVendedores << "\n\n";
+
+    // Cálculos para cada Gerente
+    arquivo << "Gerentes:\n";
+    for (auto &gerente : gerentes)
+    {
+        float salario = gerente.calcularSalario(0);
+        totalSalariosGerentes += salario;
+        arquivo << "Nome: " << gerente.getNome() << ", Cargo: Gerente, Salário: " << salario << "\n";
+    }
+    arquivo << "Total de salários de Gerentes: " << totalSalariosGerentes << "\n\n";
+
+    // Cálculo do total geral de salários
+    totalSalariosGeral = totalSalariosASG + totalSalariosVendedores + totalSalariosGerentes;
+    arquivo << "Total de salários geral: " << totalSalariosGeral << "\n";
+
+    arquivo.close();
+
+    // Exibição no console
+    ifstream arquivoLido("resultados.txt");
+    cout << arquivoLido.rdbuf() << endl;
+    arquivoLido.close();
 }
 
 void Empresa::calcularRescisao(string matricula, Data desligamento)
 {
-    // Calcula o valor da rescisão de um funcionário pelo número de matrícula e data de desligamento
-    // ...
+    Funcionario *funcionario = buscaFuncionario(matricula);
+
+    if (funcionario != nullptr)
+    {
+        cout << "Recisão do Funcionário: " << funcionario->calcularRescisao(desligamento) << endl
+             << endl;
+    }
 }
