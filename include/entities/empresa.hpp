@@ -5,6 +5,7 @@
 #include <string>
 #include <filesystem>
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include "pessoa.hpp"
 #include "asg.hpp"

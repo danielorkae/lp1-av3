@@ -178,15 +178,41 @@ void Empresa::carregarFuncoes()
 
 void Empresa::carregarEmpresa()
 {
-    ifstream file("empresa.txt");
+    // Obtém o diretório do arquivo executável
+    filesystem::path currentPath = filesystem::current_path();
+
+    // Constrói o caminho completo para o arquivo "empresa.txt"
+    filesystem::path filePath = currentPath / "data" / "empresa.txt";
+
+    std::ifstream file(filePath);
     if (!file.is_open())
     {
-        cerr << "O arquivo empresa.txt não pôde ser aberto." << endl;
+        std::cerr << "O arquivo empresa.txt não pôde ser aberto." << std::endl;
         return;
     }
 
-    // Carrega os dados da empresa a partir do arquivo
-    // ...
+    std::string line;
+    // Ignora as linhas de separação iniciais
+    std::getline(file, line);
+    std::getline(file, line);
+
+    // Lê o nome da empresa
+    std::getline(file, line);
+    std::string nomeEmpresa = line;
+
+    // Lê o CNPJ da empresa
+    std::getline(file, line);
+    std::string cnpj = line;
+
+    // Lê o faturamento mensal da empresa
+    std::getline(file, line);
+    float faturamentoMensal;
+    std::istringstream(line) >> faturamentoMensal;
+
+    // Atualiza os atributos da empresa
+    setNomeEmpresa(nomeEmpresa);
+    setCnpj(cnpj);
+    setFaturamentoMensal(faturamentoMensal);
 
     file.close();
 }
