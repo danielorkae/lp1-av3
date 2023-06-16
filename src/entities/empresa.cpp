@@ -390,34 +390,145 @@ void carregarVendedor()
     // TODO: adicionar o setVendedores(vendedores) na classe Empresa
 }
 
-void Empresa::carregarGerente()
+void carregarGerente()
 {
-    ifstream file("gerente.txt");
-    if (!file.is_open())
+    vector<Gerente> gerentes;
+
+    try
     {
-        cerr << "O arquivo gerente.txt não pôde ser aberto." << endl;
-        return;
+        ifstream arquivo = abrirArquivo("gerente.txt");
+
+        string linha;
+        while (getline(arquivo, linha))
+        {
+            if (linha.find("GERENTE Nº:") != string::npos)
+            {
+                getline(arquivo, linha); // Ignorar linha "##### DADOS PESSOAIS #####"
+                getline(arquivo, linha);
+                string nomeFuncionario = linha;
+                getline(arquivo, linha);
+                string cpfFuncionario = linha;
+                getline(arquivo, linha);
+                int numeroFilhos = stoi(linha);
+                getline(arquivo, linha);
+                string estadoCivil = linha;
+
+                getline(arquivo, linha); // Linha de separação "***** Endereço (cidade, cep, bairro, rua e numero) ****"
+                getline(arquivo, linha);
+                string cidade = linha;
+                getline(arquivo, linha);
+                string cep = linha;
+                getline(arquivo, linha);
+                string bairro = linha;
+                getline(arquivo, linha);
+                string rua = linha;
+                getline(arquivo, linha);
+                int numero = stoi(linha);
+                Endereco endereco{cidade, cep, bairro, rua, numero};
+
+                getline(arquivo, linha); // Linha de separação "***** Data de nascimento (ano, mes, dia) ****"
+                getline(arquivo, linha);
+                int anoNascimento = stoi(linha);
+                getline(arquivo, linha);
+                int mesNascimento = stoi(linha);
+                getline(arquivo, linha);
+                int diaNascimento = stoi(linha);
+                Data dataNascimento{anoNascimento, mesNascimento, diaNascimento};
+
+                getline(arquivo, linha); // Ignorar linha "##### DADOS FUNCIONAIS #####"
+                getline(arquivo, linha);
+                string matriculaFuncionario = linha;
+                getline(arquivo, linha);
+                float salarioBase = stof(linha);
+                getline(arquivo, linha);
+                float participacaoLucros = stof(linha);
+                getline(arquivo, linha);
+                int faltas = stoi(linha);
+
+                getline(arquivo, linha); // Linha de separação "***** Data de ingresso (ano, mes, dia) ****"
+                getline(arquivo, linha);
+                int anoIngresso = stoi(linha);
+                getline(arquivo, linha);
+                int mesIngresso = stoi(linha);
+                getline(arquivo, linha);
+                int diaIngresso = stoi(linha);
+                Data dataIngresso{anoIngresso, mesIngresso, diaIngresso};
+
+                // Criar objeto Gerente e adicionar ao vetor
+                Gerente gerente(nomeFuncionario, cpfFuncionario, dataNascimento, endereco, estadoCivil,
+                                numeroFilhos, salarioBase, matriculaFuncionario, dataIngresso,
+                                participacaoLucros);
+                gerentes.push_back(gerente);
+            }
+        }
+
+        arquivo.close();
+    }
+    catch (const exception &ex)
+    {
+        // Tratamento de erro
+        cerr << "Erro: " << ex.what() << endl;
     }
 
-    // Carrega os dados dos Gerentes a partir do arquivo
-    // ...
-
-    file.close();
+    // TODO: Adicionar o vetor de gerentes à classe Empresa
 }
 
-void Empresa::carregaDono()
+void carregarDono()
 {
-    ifstream file("dono.txt");
-    if (!file.is_open())
+    try
     {
-        cerr << "O arquivo dono.txt não pôde ser aberto." << endl;
-        return;
+        ifstream arquivo("data/dono.txt");
+
+        string linha;
+        while (getline(arquivo, linha))
+        {
+            if (linha.find("##### DADOS PESSOAIS #####") != string::npos)
+            {
+                getline(arquivo, linha);
+                string nomeDono = linha;
+                getline(arquivo, linha);
+                string cpfDono = linha;
+                getline(arquivo, linha);
+                int numeroFilhos = stoi(linha);
+                getline(arquivo, linha);
+                string estadoCivil = linha;
+
+                getline(arquivo, linha);
+                string cidade = linha;
+                getline(arquivo, linha);
+                string cep = linha;
+                getline(arquivo, linha);
+                string bairro = linha;
+                getline(arquivo, linha);
+                string rua = linha;
+                getline(arquivo, linha);
+                int numero = stoi(linha);
+                Endereco endereco{cidade, cep, bairro, rua, numero};
+
+                getline(arquivo, linha);
+                int anoNascimento = stoi(linha);
+                getline(arquivo, linha);
+                int mesNascimento = stoi(linha);
+                getline(arquivo, linha);
+                int diaNascimento = stoi(linha);
+                Data dataNascimento{anoNascimento, mesNascimento, diaNascimento};
+
+                // Criar objeto Dono (do tipo Pessoa)
+                Pessoa dono(nomeDono, cpfDono, dataNascimento, endereco, estadoCivil, numeroFilhos);
+
+                // TODO: adicionar o dono à empresa.
+
+                break; // Se encontrou os dados do dono, não precisa continuar lendo o arquivo
+            }
+        }
+
+        arquivo.close();
     }
-
-    // Carrega os dados do dono da empresa a partir do arquivo
-    // ...
-
-    file.close();
+    catch (const exception &ex)
+    {
+        // Tratamento de erro
+        cerr << "Erro: " << ex.what() << endl;
+    }
 }
 
 void Empresa::imprimeAsgs()
