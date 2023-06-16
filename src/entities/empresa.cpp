@@ -224,7 +224,7 @@ void Empresa::carregarEmpresa()
     file.close();
 }
 
-vector<Asg> carregarAsg()
+void carregarAsg()
 {
     vector<Asg> asgs;
 
@@ -304,22 +304,90 @@ vector<Asg> carregarAsg()
         cerr << "Erro: " << ex.what() << endl;
     }
 
-    return asgs;
+    // TODO: adicionar o setAsgs(asgs) na classe Empresa
 }
 
-void Empresa::carregarVendedor()
+void carregarVendedor()
 {
-    ifstream file("vendedor.txt");
-    if (!file.is_open())
+    vector<Vendedor> vendedores;
+
+    try
     {
-        cerr << "O arquivo vendedor.txt não pôde ser aberto." << endl;
-        return;
+        ifstream arquivo = abrirArquivo("vendedor.txt");
+
+        string linha;
+        while (getline(arquivo, linha))
+        {
+            if (linha.find("VENDEDOR Nº:") != string::npos)
+            {
+                getline(arquivo, linha); // Ignorar linha "##### DADOS PESSOAIS #####"
+                getline(arquivo, linha);
+                string nomeFuncionario = linha;
+                getline(arquivo, linha);
+                string cpfFuncionario = linha;
+                getline(arquivo, linha);
+                int numeroFilhos = stoi(linha);
+                getline(arquivo, linha);
+                string estadoCivil = linha;
+
+                getline(arquivo, linha); // Linha de separação "***** Endereço (cidade, cep, bairro, rua e numero) ****"
+                getline(arquivo, linha);
+                string cidade = linha;
+                getline(arquivo, linha);
+                string cep = linha;
+                getline(arquivo, linha);
+                string bairro = linha;
+                getline(arquivo, linha);
+                string rua = linha;
+                getline(arquivo, linha);
+                int numero = stoi(linha);
+                Endereco endereco{cidade, cep, bairro, rua, numero};
+
+                getline(arquivo, linha); // Linha de separação "***** Data de nascimento (ano, mes, dia) ****"
+                getline(arquivo, linha);
+                int anoNascimento = stoi(linha);
+                getline(arquivo, linha);
+                int mesNascimento = stoi(linha);
+                getline(arquivo, linha);
+                int diaNascimento = stoi(linha);
+                Data dataNascimento{anoNascimento, mesNascimento, diaNascimento};
+
+                getline(arquivo, linha); // Ignorar linha "##### DADOS FUNCIONAIS #####"
+                getline(arquivo, linha);
+                string matriculaFuncionario = linha;
+                getline(arquivo, linha);
+                float salarioBase = stof(linha);
+                getline(arquivo, linha);
+                char categoria = linha[0];
+                getline(arquivo, linha);
+                int diasFalta = stoi(linha);
+
+                getline(arquivo, linha); // Linha de separação "***** Data de ingresso (ano, mes, dia) ****"
+                getline(arquivo, linha);
+                int anoIngresso = stoi(linha);
+                getline(arquivo, linha);
+                int mesIngresso = stoi(linha);
+                getline(arquivo, linha);
+                int diaIngresso = stoi(linha);
+                Data dataIngresso{anoIngresso, mesIngresso, diaIngresso};
+
+                // Criar objeto Vendedor e adicionar ao vetor
+                Vendedor vendedor(nomeFuncionario, cpfFuncionario, dataNascimento, endereco, estadoCivil,
+                                  numeroFilhos, salarioBase, matriculaFuncionario, dataIngresso,
+                                  categoria);
+                vendedores.push_back(vendedor);
+            }
+        }
+
+        arquivo.close();
+    }
+    catch (const exception &ex)
+    {
+        // Tratamento de erro
+        cerr << "Erro: " << ex.what() << endl;
     }
 
-    // Carrega os dados dos Vendedores a partir do arquivo
-    // ...
-
-    file.close();
+    // TODO: adicionar o setVendedores(vendedores) na classe Empresa
 }
 
 void Empresa::carregarGerente()
