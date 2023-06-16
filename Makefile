@@ -16,7 +16,7 @@ SRCS += $(SRC_DIR)/*.cpp
 OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRCS))
 EXEC = $(BIN_DIR)/$(PROGRAM)
 
-# Regra padrão, que chama a regra para gerar o executável
+# Regra padrão, que chama a regra para gerar o executável e copiar os arquivos de data
 all: $(EXEC)
 
 # Regra para gerar o executável
@@ -26,6 +26,11 @@ $(EXEC): $(OBJS)
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
+
+# Regra para executar o programa
+.PHONY: run
+run: $(EXEC)
+	$(EXEC)
 
 # Define a regra para limpar os arquivos gerados pelo Makefile
 .PHONY: clean
