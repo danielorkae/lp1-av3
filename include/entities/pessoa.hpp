@@ -18,7 +18,10 @@ private:
     int qtdFilhos;            /**< Quantidade de filhos da pessoa */
 
 public:
-    Pessoa(); /**< Construtor padrão */
+    /**
+     * @brief Construtor padrão.
+     */
+    Pessoa();
 
     /**
      * @brief Construtor que inicializa uma pessoa com todos os parâmetros.
