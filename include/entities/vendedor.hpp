@@ -1,8 +1,11 @@
 #ifndef VENDEDOR_HPP
 #define VENDEDOR_HPP
 
+#include <iostream>
 #include "entities/pessoa.hpp"
 #include "entities/funcionario.hpp"
+
+using namespace std;
 
 /**
  * @brief Classe concreta que representa um Vendedor.
@@ -31,8 +34,8 @@ public:
      * @param ingressoEmpresa A data de ingresso na empresa do Vendedor.
      * @param tipoVendedor O tipo de vendedor.
      */
-    Vendedor(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal,
-             std::string estadoCivil, int qtdFilhos, float salario, std::string matricula,
+    Vendedor(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal,
+             string estadoCivil, int qtdFilhos, float salario, string matricula,
              Data ingressoEmpresa, char tipoVendedor);
 
     /**
@@ -60,6 +63,11 @@ public:
      * @return O valor da rescisão calculado.
      */
     float calcularRescisao(Data desligamento);
+
+    /**
+     * @brief Imprime os dados do Vendedor.
+     */
+    void imprimirDados();
 };
 
 #endif // VENDEDOR_HPP

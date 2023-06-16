@@ -1,9 +1,12 @@
 #ifndef GERENTE_HPP
 #define GERENTE_HPP
 
+#include <iostream>
 #include <string>
 #include "entities/pessoa.hpp"
 #include "entities/funcionario.hpp"
+
+using namespace std;
 
 /**
  * @brief Classe concreta que representa um Gerente.
@@ -32,8 +35,8 @@ public:
      * @param ingressoEmpresa A data de ingresso na empresa do Gerente.
      * @param participacaoLucros A participação nos lucros do Gerente.
      */
-    Gerente(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal,
-            std::string estadoCivil, int qtdFilhos, float salario, std::string matricula,
+    Gerente(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal,
+            string estadoCivil, int qtdFilhos, float salario, string matricula,
             Data ingressoEmpresa, float participacaoLucros);
 
     /**
@@ -61,6 +64,11 @@ public:
      * @return O valor da rescisão calculado.
      */
     float calcularRescisao(Data desligamento);
+
+    /**
+     * @brief Imprime os dados do Gerente.
+     */
+    void imprimirDados();
 };
 
 #endif // GERENTE_HPP

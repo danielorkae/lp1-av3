@@ -106,6 +106,11 @@ public:
      * @param qtdFilhos A quantidade de filhos da pessoa.
      */
     void setQtdFilhos(int qtdFilhos);
+
+    /**
+     * @brief Imprime os dados da pessoa.
+     */
+    virtual void imprimirDados();
 };
 
 #endif // PESSOA_HPP

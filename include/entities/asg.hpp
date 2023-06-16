@@ -1,8 +1,11 @@
 #ifndef ASG_HPP
 #define ASG_HPP
 
+#include <iostream>
 #include "entities/pessoa.hpp"
 #include "entities/funcionario.hpp"
+
+using namespace std;
 
 /**
  * @brief Classe concreta que representa um ASG (Auxiliar de Serviços Gerais).
@@ -31,8 +34,8 @@ public:
      * @param ingressoEmpresa A data de ingresso na empresa do ASG.
      * @param adicionalInsalubridade O adicional de insalubridade do ASG.
      */
-    Asg(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal,
-        std::string estadoCivil, int qtdFilhos, float salario, std::string matricula,
+    Asg(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal,
+        string estadoCivil, int qtdFilhos, float salario, string matricula,
         Data ingressoEmpresa, float adicionalInsalubridade);
 
     /**
@@ -61,6 +64,11 @@ public:
      * @return O valor da rescisão calculado do ASG.
      */
     float calcularRescisao(Data desligamento);
+
+    /**
+     * @brief Imprime os dados do ASG.
+     */
+    void imprimirDados();
 };
 
 #endif // ASG_HPP

@@ -227,8 +227,6 @@ void Empresa::carregarEmpresa()
 
 void Empresa::carregarAsg()
 {
-    vector<Asg> asgs;
-
     try
     {
         fstream arquivo = abrirArquivo("asg.txt");
@@ -304,14 +302,10 @@ void Empresa::carregarAsg()
         // Tratamento de erro
         cerr << "Erro: " << ex.what() << endl;
     }
-
-    // TODO: adicionar o setAsgs(asgs) na classe Empresa
 }
 
 void Empresa::carregarVendedor()
 {
-    vector<Vendedor> vendedores;
-
     try
     {
         fstream arquivo = abrirArquivo("vendedor.txt");
@@ -387,14 +381,10 @@ void Empresa::carregarVendedor()
         // Tratamento de erro
         cerr << "Erro: " << ex.what() << endl;
     }
-
-    // TODO: adicionar o setVendedores(vendedores) na classe Empresa
 }
 
 void Empresa::carregarGerente()
 {
-    vector<Gerente> gerentes;
-
     try
     {
         fstream arquivo = abrirArquivo("gerente.txt");
@@ -470,13 +460,10 @@ void Empresa::carregarGerente()
         // Tratamento de erro
         cerr << "Erro: " << ex.what() << endl;
     }
-
-    // TODO: Adicionar o vetor de gerentes à classe Empresa
 }
 
 void Empresa::carregaDono()
 {
-
     try
     {
         fstream arquivo = abrirArquivo("dono.txt");
@@ -516,10 +503,12 @@ void Empresa::carregaDono()
                 int diaNascimento = stoi(linha);
                 Data dataNascimento{anoNascimento, mesNascimento, diaNascimento};
 
-                // Criar objeto Dono (do tipo Pessoa)
-                Pessoa dono(nomeDono, cpfDono, dataNascimento, endereco, estadoCivil, numeroFilhos);
-
-                // TODO: adicionar o dono à empresa.
+                dono.setNome(nomeDono);
+                dono.setCpf(cpfDono);
+                dono.setDataNascimento(dataNascimento);
+                dono.setEnderecoPessoal(endereco);
+                dono.setEstadoCivil(estadoCivil);
+                dono.setQtdFilhos(numeroFilhos);
 
                 break; // Se encontrou os dados do dono, não precisa continuar lendo o arquivo
             }
@@ -538,7 +527,7 @@ void Empresa::imprimeAsgs()
 {
     for (auto asg : asgs)
     {
-        // asg.imprimirAtributos();
+        asg.imprimirDados();
     }
 }
 
@@ -546,7 +535,7 @@ void Empresa::imprimeVendedores()
 {
     for (auto vendedor : vendedores)
     {
-        // vendedor.imprimirAtributos();
+        vendedor.imprimirDados();
     }
 }
 
@@ -554,13 +543,13 @@ void Empresa::imprimeGerentes()
 {
     for (auto gerente : gerentes)
     {
-        // gerente.imprimirAtributos();
+        gerente.imprimirDados();
     }
 }
 
 void Empresa::imprimeDono()
 {
-    // dono.imprimirAtributos();
+    dono.imprimirDados();
 }
 
 void Empresa::buscaFuncionario(string matricula)

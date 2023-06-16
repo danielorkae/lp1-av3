@@ -4,8 +4,8 @@ Gerente::Gerente() : participacaoLucros(0.0f)
 {
 }
 
-Gerente::Gerente(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal,
-                 std::string estadoCivil, int qtdFilhos, float salario, std::string matricula,
+Gerente::Gerente(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal,
+                 string estadoCivil, int qtdFilhos, float salario, string matricula,
                  Data ingressoEmpresa, float participacaoLucros)
     : Pessoa(nome, cpf, dataNascimento, enderecoPessoal, estadoCivil, qtdFilhos),
       Funcionario(salario, matricula, ingressoEmpresa),
@@ -61,4 +61,25 @@ float Gerente::calcularRescisao(Data desligamento)
     float salarioRescisao = salarioBaseAnual * tempoTrabalho;
 
     return salarioRescisao;
+}
+
+void Gerente::imprimirDados()
+{
+    cout << "=== Dados do Gerente ===" << endl;
+    cout << "Nome: " << getNome() << endl;
+    cout << "CPF: " << getCpf() << endl;
+    cout << "Endereço: " << getEnderecoPessoal().rua << ", " << getEnderecoPessoal().numero << ", "
+         << getEnderecoPessoal().bairro << ", " << getEnderecoPessoal().cidade << ", "
+         << getEnderecoPessoal().cep << endl;
+    cout << "Data de nascimento: " << getDataNascimento().dia << "/" << getDataNascimento().mes << "/"
+         << getDataNascimento().ano << endl;
+    cout << "Estado civil: " << getEstadoCivil() << endl;
+    cout << "Quantidade de filhos: " << getQtdFilhos() << endl;
+    cout << "Salário: " << getSalario() << endl;
+    cout << "Matrícula: " << getMatricula() << endl;
+    cout << "Data de ingresso na empresa: " << getIngressoEmpresa().dia << "/" << getIngressoEmpresa().mes << "/"
+         << getIngressoEmpresa().ano << endl;
+    cout << "Participação nos lucros: " << getParticipacaoLucros() << endl;
+    cout << endl
+         << endl;
 }

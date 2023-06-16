@@ -5,8 +5,8 @@ Vendedor::Vendedor()
     // Construtor padrão
 }
 
-Vendedor::Vendedor(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal,
-                   std::string estadoCivil, int qtdFilhos, float salario, std::string matricula,
+Vendedor::Vendedor(string nome, string cpf, Data dataNascimento, Endereco enderecoPessoal,
+                   string estadoCivil, int qtdFilhos, float salario, string matricula,
                    Data ingressoEmpresa, char tipoVendedor)
     : Pessoa(nome, cpf, dataNascimento, enderecoPessoal, estadoCivil, qtdFilhos),
       Funcionario(salario, matricula, ingressoEmpresa),
@@ -77,4 +77,25 @@ float Vendedor::calcularRescisao(Data desligamento)
     float salarioRescisao = salarioBaseAnual * tempoTrabalho;
 
     return salarioRescisao;
+}
+
+void Vendedor::imprimirDados()
+{
+    cout << "=== Dados do vendedor ===" << endl;
+    cout << "Nome: " << getNome() << endl;
+    cout << "CPF: " << getCpf() << endl;
+    cout << "Data de nascimento: " << getDataNascimento().dia << "/" << getDataNascimento().mes << "/"
+         << getDataNascimento().ano << endl;
+    cout << "Endereço: " << getEnderecoPessoal().rua << ", " << getEnderecoPessoal().numero << ", "
+         << getEnderecoPessoal().bairro << ", " << getEnderecoPessoal().cidade << ", "
+         << getEnderecoPessoal().cep << endl;
+    cout << "Estado civil: " << getEstadoCivil() << endl;
+    cout << "Quantidade de filhos: " << getQtdFilhos() << endl;
+    cout << "Salário: " << getSalario() << endl;
+    cout << "Matrícula: " << getMatricula() << endl;
+    cout << "Data de ingresso na empresa: " << getIngressoEmpresa().dia << "/" << getIngressoEmpresa().mes << "/"
+         << getIngressoEmpresa().ano << endl;
+    cout << "Tipo de vendedor: " << tipoVendedor << endl;
+    cout << endl
+         << endl;
 }

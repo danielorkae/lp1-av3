@@ -76,3 +76,8 @@ void Pessoa::setQtdFilhos(int qtdFilhos)
 {
     this->qtdFilhos = qtdFilhos;
 }
+
+void Pessoa::imprimirDados()
+{
+    //
+}
