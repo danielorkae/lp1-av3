@@ -2,14 +2,14 @@
 #define FUNCIONARIO_HPP
 
 #include <string>
-#include <util.hpp>
+#include "util.hpp"
 
 /**
  * @brief Classe abstrata que representa um funcionário.
  */
 class Funcionario
 {
-protected:
+private:
     std::string salario;   /**< Salário do funcionário */
     std::string matricula; /**< Matrícula do funcionário */
     Data ingressoEmpresa;  /**< Data de ingresso na empresa */
@@ -27,11 +27,6 @@ public:
      * @param ingressoEmpresa A data de ingresso na empresa.
      */
     Funcionario(std::string salario, std::string matricula, Data ingressoEmpresa);
-
-    /**
-     * @brief Destrutor virtual.
-     */
-    virtual ~Funcionario();
 
     /**
      * @brief Obtém o salário do funcionário.
@@ -74,14 +69,14 @@ public:
      * @param diasFaltas O número de dias de faltas do funcionário.
      * @return O salário calculado.
      */
-    virtual double calcularSalario(int diasFaltas) = 0;
+    virtual float calcularSalario(int diasFaltas) = 0;
 
     /**
      * @brief Calcula a rescisão do funcionário com base na data de desligamento.
      * @param desligamento A data de desligamento do funcionário.
      * @return O valor da rescisão calculado.
      */
-    virtual double calcularRecisao(Data desligamento) = 0;
+    virtual float calcularRecisao(Data desligamento) = 0;
 };
 
 #endif // FUNCIONARIO_HPP

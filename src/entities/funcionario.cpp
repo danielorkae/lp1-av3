@@ -13,11 +13,6 @@ Funcionario::Funcionario(std::string salario, std::string matricula, Data ingres
     // Construtor com todos os parâmetros
 }
 
-Funcionario::~Funcionario()
-{
-    // Destrutor
-}
-
 std::string Funcionario::getSalario() const
 {
     return salario;
