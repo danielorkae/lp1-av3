@@ -160,13 +160,13 @@ public:
      * @brief Busca um funcionário pelo número de matrícula.
      * @param matricula O número de matrícula do funcionário a ser buscado.
      */
-    void buscaFuncionario(int matricula);
+    void buscaFuncionario(string matricula);
 
     /**
      * @brief Calcula o salário de um funcionário pelo número de matrícula.
      * @param matricula O número de matrícula do funcionário.
      */
-    void calculaSalarioFuncionario(int matricula);
+    void calculaSalarioFuncionario(string matricula);
 
     /**
      * @brief Calcula os salários de todos os funcionários e salva os resultados em um arquivo.
@@ -178,7 +178,7 @@ public:
      * @param matricula O número de matrícula do funcionário.
      * @param desligamento A data de desligamento do funcionário.
      */
-    void calcularRescisao(int matricula, Data desligamento);
+    void calcularRescisao(string matricula, Data desligamento);
 };
 
 #endif // EMPRESA_HPP

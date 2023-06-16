@@ -77,8 +77,6 @@ fstream abrirArquivo(string nomeArquivo)
         // Constrói o caminho completo para o arquivo
         filesystem::path filePath = currentPath / "data" / nomeArquivo;
 
-        cout << "Tentando Abrir o arquivo: " << filePath << endl;
-
         // Verifica se o arquivo existe
         if (!filesystem::exists(filePath))
         {
@@ -153,21 +151,21 @@ void Empresa::carregarFuncoes()
             {
                 // Extrai a matrícula do funcionário da próxima linha
                 getline(arquivo, linha);
-                int matricula = stoi(linha);
+                string matricula = linha;
                 buscaFuncionario(matricula);
             }
             else if (linha.find("calculaSalarioFuncionario()") == 0)
             {
                 // Extrai a matrícula do funcionário da próxima linha
                 getline(arquivo, linha);
-                int matricula = stoi(linha);
+                string matricula = linha;
                 calculaSalarioFuncionario(matricula);
             }
             else if (linha == "calculaTodoOsSalarios()")
             {
                 calculaTodosSalarios();
             }
-            else if (linha.find("calcularRescisao()") == 0)
+            else if (linha.find("calcularRecisao()") == 0 || linha.find("calcularRescisao()") == 0)
             {
                 // Extrai a matrícula, ano, mês e dia da próxima linha
                 string matriculaStr, anoStr, mesStr, diaStr;
@@ -175,7 +173,7 @@ void Empresa::carregarFuncoes()
                 getline(arquivo, anoStr);
                 getline(arquivo, mesStr);
                 getline(arquivo, diaStr);
-                int matricula = stoi(matriculaStr);
+                string matricula = matriculaStr;
                 int ano = stoi(anoStr);
                 int mes = stoi(mesStr);
                 int dia = stoi(diaStr);
@@ -478,6 +476,7 @@ void Empresa::carregarGerente()
 
 void Empresa::carregaDono()
 {
+
     try
     {
         fstream arquivo = abrirArquivo("dono.txt");
@@ -485,7 +484,7 @@ void Empresa::carregaDono()
         string linha;
         while (getline(arquivo, linha))
         {
-            if (linha.find("##### DADOS PESSOAIS #####") != string::npos)
+            if (linha.find("##### DADOS PESSOAIS") != string::npos)
             {
                 getline(arquivo, linha);
                 string nomeDono = linha;
@@ -493,6 +492,7 @@ void Empresa::carregaDono()
                 string cpfDono = linha;
                 getline(arquivo, linha);
                 int numeroFilhos = stoi(linha);
+
                 getline(arquivo, linha);
                 string estadoCivil = linha;
 
@@ -563,13 +563,13 @@ void Empresa::imprimeDono()
     // dono.imprimirAtributos();
 }
 
-void Empresa::buscaFuncionario(int matricula)
+void Empresa::buscaFuncionario(string matricula)
 {
     // Busca o funcionário pelo número de matrícula
     // ...
 }
 
-void Empresa::calculaSalarioFuncionario(int matricula)
+void Empresa::calculaSalarioFuncionario(string matricula)
 {
     // Calcula o salário do funcionário pelo número de matrícula
     // ...
@@ -581,7 +581,7 @@ void Empresa::calculaTodosSalarios()
     // ...
 }
 
-void Empresa::calcularRescisao(int matricula, Data desligamento)
+void Empresa::calcularRescisao(string matricula, Data desligamento)
 {
     // Calcula o valor da rescisão de um funcionário pelo número de matrícula e data de desligamento
     // ...
