@@ -224,19 +224,87 @@ void Empresa::carregarEmpresa()
     file.close();
 }
 
-void Empresa::carregarAsg()
+vector<Asg> carregarAsg()
 {
-    ifstream file("asg.txt");
-    if (!file.is_open())
+    vector<Asg> asgs;
+
+    try
     {
-        cerr << "O arquivo asg.txt não pôde ser aberto." << endl;
-        return;
+        ifstream arquivo = abrirArquivo("asg.txt");
+
+        string linha;
+        while (getline(arquivo, linha))
+        {
+            if (linha.find("ASG Nº:") != string::npos)
+            {
+                getline(arquivo, linha); // Ignorar linha "##### DADOS PESSOAIS #####"
+                getline(arquivo, linha);
+                string nomeFuncionario = linha;
+                getline(arquivo, linha);
+                string cpfFuncionario = linha;
+                getline(arquivo, linha);
+                int numeroFilhos = stoi(linha);
+                getline(arquivo, linha);
+                string estadoCivil = linha;
+
+                getline(arquivo, linha); // Linha de separação "***** Endereço (cidade, cep, bairro, rua e numero) ****"
+                getline(arquivo, linha);
+                string cidade = linha;
+                getline(arquivo, linha);
+                string cep = linha;
+                getline(arquivo, linha);
+                string bairro = linha;
+                getline(arquivo, linha);
+                string rua = linha;
+                getline(arquivo, linha);
+                int numero = stoi(linha);
+                Endereco endereco{cidade, cep, bairro, rua, numero};
+
+                getline(arquivo, linha); // Linha de separação "***** Data de nascimento (ano, mes, dia) ****"
+                getline(arquivo, linha);
+                int anoNascimento = stoi(linha);
+                getline(arquivo, linha);
+                int mesNascimento = stoi(linha);
+                getline(arquivo, linha);
+                int diaNascimento = stoi(linha);
+                Data dataNascimento{anoNascimento, mesNascimento, diaNascimento};
+
+                getline(arquivo, linha); // Ignorar linha "##### DADOS FUNCIONAIS #####"
+                getline(arquivo, linha);
+                string matriculaFuncionario = linha;
+                getline(arquivo, linha);
+                float salarioBase = stof(linha);
+                getline(arquivo, linha);
+                float porcentagemInsalubridade = stof(linha);
+                getline(arquivo, linha);
+                int diasFalta = stoi(linha);
+
+                getline(arquivo, linha); // Linha de separação "***** Data de ingresso (ano, mes, dia) ****"
+                getline(arquivo, linha);
+                int anoIngresso = stoi(linha);
+                getline(arquivo, linha);
+                int mesIngresso = stoi(linha);
+                getline(arquivo, linha);
+                int diaIngresso = stoi(linha);
+                Data dataIngresso{anoIngresso, mesIngresso, diaIngresso};
+
+                // Criar objeto Asg e adicionar ao vetor
+                Asg asg(nomeFuncionario, cpfFuncionario, dataNascimento, endereco, estadoCivil,
+                        numeroFilhos, salarioBase, matriculaFuncionario, dataIngresso,
+                        porcentagemInsalubridade);
+                asgs.push_back(asg);
+            }
+        }
+
+        arquivo.close();
+    }
+    catch (const exception &ex)
+    {
+        // Tratamento de erro
+        cerr << "Erro: " << ex.what() << endl;
     }
 
-    // Carrega os dados dos ASGs a partir do arquivo
-    // ...
-
-    file.close();
+    return asgs;
 }
 
 void Empresa::carregarVendedor()
