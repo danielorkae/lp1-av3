@@ -2,6 +2,8 @@
 
 using namespace std;
 
+ifstream abrirArquivo(string nomeArquivo);
+
 Empresa::Empresa()
 {
     //
@@ -65,28 +67,44 @@ vector<Gerente> &Empresa::getGerentes()
     return gerentes;
 }
 
-void Empresa::carregarFuncoes()
+ifstream abrirArquivo(string nomeArquivo)
 {
     try
     {
         // Obtém o diretório do arquivo executável
         filesystem::path currentPath = filesystem::current_path();
 
-        // Constrói o caminho completo para o arquivo "funcoes.txt"
-        filesystem::path filePath = currentPath / "data" / "funcoes.txt";
+        // Constrói o caminho completo para o arquivo
+        filesystem::path filePath = currentPath / "data" / nomeArquivo;
 
         // Verifica se o arquivo existe
         if (!filesystem::exists(filePath))
         {
-            throw runtime_error("Erro: arquivo 'funcoes.txt' não encontrado.");
+            throw runtime_error("Erro: arquivo " + nomeArquivo + " não encontrado.");
         }
 
-        // Abre o arquivo em modo de leitura
-        ifstream arquivo(filePath);
+        ifstream arquivo(nomeArquivo);
+
         if (!arquivo.is_open())
         {
-            throw runtime_error("Erro ao abrir o arquivo 'funcoes.txt'.");
+            throw runtime_error("Erro ao abrir o arquivo: " + nomeArquivo);
         }
+
+        return arquivo;
+    }
+    catch (const exception &ex)
+    {
+        cerr << ex.what() << endl;
+        throw; // Re-lança a exceção para ser tratada em outro lugar, se necessário
+    }
+}
+
+void Empresa::carregarFuncoes()
+{
+    try
+    {
+        // Abre o arquivo em modo de leitura
+        ifstream arquivo = abrirArquivo("funcoes.txt");
 
         // Lê cada linha do arquivo e executa a função correspondente
         string linha;
@@ -178,36 +196,25 @@ void Empresa::carregarFuncoes()
 
 void Empresa::carregarEmpresa()
 {
-    // Obtém o diretório do arquivo executável
-    filesystem::path currentPath = filesystem::current_path();
+    ifstream file = abrirArquivo("empresa.txt");
 
-    // Constrói o caminho completo para o arquivo "empresa.txt"
-    filesystem::path filePath = currentPath / "data" / "empresa.txt";
-
-    std::ifstream file(filePath);
-    if (!file.is_open())
-    {
-        std::cerr << "O arquivo empresa.txt não pôde ser aberto." << std::endl;
-        return;
-    }
-
-    std::string line;
+    string line;
     // Ignora as linhas de separação iniciais
-    std::getline(file, line);
-    std::getline(file, line);
+    getline(file, line);
+    getline(file, line);
 
     // Lê o nome da empresa
-    std::getline(file, line);
-    std::string nomeEmpresa = line;
+    getline(file, line);
+    string nomeEmpresa = line;
 
     // Lê o CNPJ da empresa
-    std::getline(file, line);
-    std::string cnpj = line;
+    getline(file, line);
+    string cnpj = line;
 
     // Lê o faturamento mensal da empresa
-    std::getline(file, line);
+    getline(file, line);
     float faturamentoMensal;
-    std::istringstream(line) >> faturamentoMensal;
+    istringstream(line) >> faturamentoMensal;
 
     // Atualiza os atributos da empresa
     setNomeEmpresa(nomeEmpresa);
