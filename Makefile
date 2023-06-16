@@ -35,4 +35,4 @@ run: $(EXEC)
 # Define a regra para limpar os arquivos gerados pelo Makefile
 .PHONY: clean
 clean:
-	rm -rf $(BUILD_DIR)/*.o $(BIN_DIR)/$(PROGRAM) $(DEPS)
+	rm -rf $(BUILD_DIR)/*.o $(BIN_DIR)/$(PROGRAM) $(DEPS) resultados.txt
