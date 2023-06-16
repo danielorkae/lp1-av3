@@ -5,7 +5,7 @@ Funcionario::Funcionario()
     // Construtor padrão
 }
 
-Funcionario::Funcionario(std::string salario, std::string matricula, Data ingressoEmpresa)
+Funcionario::Funcionario(float salario, std::string matricula, Data ingressoEmpresa)
     : salario(salario),
       matricula(matricula),
       ingressoEmpresa(ingressoEmpresa)
@@ -13,12 +13,12 @@ Funcionario::Funcionario(std::string salario, std::string matricula, Data ingres
     // Construtor com todos os parâmetros
 }
 
-std::string Funcionario::getSalario() const
+float Funcionario::getSalario() const
 {
     return salario;
 }
 
-void Funcionario::setSalario(std::string salario)
+void Funcionario::setSalario(float salario)
 {
     this->salario = salario;
 }

@@ -32,7 +32,7 @@ public:
      * @param adicionalInsalubridade O adicional de insalubridade do ASG.
      */
     Asg(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal,
-        std::string estadoCivil, int qtdFilhos, std::string salario, std::string matricula,
+        std::string estadoCivil, int qtdFilhos, float salario, std::string matricula,
         Data ingressoEmpresa, float adicionalInsalubridade);
 
     /**
@@ -48,18 +48,19 @@ public:
     void setAdicionalInsalubridade(float adicionalInsalubridade);
 
     /**
-     * @brief Calcula o salário do ASG considerando os dias de faltas.
+     * @brief Calcula o salário do ASG com base no número de dias de faltas, adicional de insalubridade
+     * e adicional por filho.
      * @param diasFaltas O número de dias de faltas do ASG.
-     * @return O salário calculado.
+     * @return O salário calculado do ASG.
      */
-    double calcularSalario(int diasFaltas) override;
+    float calcularSalario(int diasFaltas) override;
 
     /**
-     * @brief Calcula a rescisão do ASG com base na data de desligamento.
+     * @brief Calcula o valor da rescisão do ASG com base na data de desligamento.
      * @param desligamento A data de desligamento do ASG.
-     * @return O valor da rescisão calculado.
+     * @return O valor da rescisão calculado do ASG.
      */
-    double calcularRecisao(Data desligamento) override;
+    float calcularRecisao(Data desligamento) override;
 };
 
 #endif // ASG_HPP

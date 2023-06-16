@@ -10,7 +10,7 @@
 class Funcionario
 {
 private:
-    std::string salario;   /**< Salário do funcionário */
+    float salario;         /**< Salário do funcionário */
     std::string matricula; /**< Matrícula do funcionário */
     Data ingressoEmpresa;  /**< Data de ingresso na empresa */
 
@@ -26,19 +26,19 @@ public:
      * @param matricula A matrícula do funcionário.
      * @param ingressoEmpresa A data de ingresso na empresa.
      */
-    Funcionario(std::string salario, std::string matricula, Data ingressoEmpresa);
+    Funcionario(float salario, std::string matricula, Data ingressoEmpresa);
 
     /**
      * @brief Obtém o salário do funcionário.
      * @return O salário do funcionário.
      */
-    std::string getSalario() const;
+    float getSalario() const;
 
     /**
      * @brief Define o salário do funcionário.
      * @param salario O salário do funcionário.
      */
-    void setSalario(std::string salario);
+    void setSalario(float salario);
 
     /**
      * @brief Obtém a matrícula do funcionário.
