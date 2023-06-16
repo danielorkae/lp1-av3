@@ -34,7 +34,7 @@ float Asg::calcularSalario(int diasFaltas)
     return salarioFinal;
 }
 
-float Asg::calcularRecisao(Data desligamento)
+float Asg::calcularRescisao(Data desligamento)
 {
     Data dataIngresso = getIngressoEmpresa();
 
@@ -53,7 +53,7 @@ float Asg::calcularRecisao(Data desligamento)
 
     // Calcular a rescisão considerando o salário base por ano trabalhado
     float salarioBaseAnual = getSalario();
-    float salarioRecisao = salarioBaseAnual * tempoTrabalho;
+    float salarioRescisao = salarioBaseAnual * tempoTrabalho;
 
-    return salarioRecisao;
+    return salarioRescisao;
 }

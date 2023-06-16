@@ -55,7 +55,7 @@ float Vendedor::calcularSalario(int diasFaltas)
     return salarioBase;
 }
 
-float Vendedor::calcularRecisao(Data desligamento)
+float Vendedor::calcularRescisao(Data desligamento)
 {
     Data dataIngresso = getIngressoEmpresa();
 
@@ -73,8 +73,8 @@ float Vendedor::calcularRecisao(Data desligamento)
     float tempoTrabalho = fracaoAnoDesligamento - fracaoAnoIngresso;
 
     // Calcular a rescisão considerando o salário base por ano trabalhado
-    float salarioBaseAnual = std::stof(getSalario());
-    float salarioRecisao = salarioBaseAnual * tempoTrabalho;
+    float salarioBaseAnual = getSalario();
+    float salarioRescisao = salarioBaseAnual * tempoTrabalho;
 
-    return salarioRecisao;
+    return salarioRescisao;
 }

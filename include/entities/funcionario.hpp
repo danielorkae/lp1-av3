@@ -76,7 +76,7 @@ public:
      * @param desligamento A data de desligamento do funcionário.
      * @return O valor da rescisão calculado.
      */
-    virtual float calcularRecisao(Data desligamento) = 0;
+    virtual float calcularRescisao(Data desligamento) = 0;
 };
 
 #endif // FUNCIONARIO_HPP

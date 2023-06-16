@@ -39,7 +39,7 @@ float Gerente::calcularSalario(int diasFaltas)
     return salarioBase;
 }
 
-float Gerente::calcularRecisao(Data desligamento)
+float Gerente::calcularRescisao(Data desligamento)
 {
     Data dataIngresso = getIngressoEmpresa();
 
@@ -58,7 +58,7 @@ float Gerente::calcularRecisao(Data desligamento)
 
     // Calcular a rescisão considerando o salário base por ano trabalhado
     float salarioBaseAnual = getSalario();
-    float salarioRecisao = salarioBaseAnual * tempoTrabalho;
+    float salarioRescisao = salarioBaseAnual * tempoTrabalho;
 
-    return salarioRecisao;
+    return salarioRescisao;
 }
