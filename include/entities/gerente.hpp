@@ -32,9 +32,9 @@ public:
      * @param ingressoEmpresa A data de ingresso na empresa do Gerente.
      * @param participacaoLucros A participação nos lucros do Gerente.
      */
-    Gerente(const std::string &nome, const std::string &cpf, const Data &dataNascimento, const Endereco &enderecoPessoal,
-            const std::string &estadoCivil, int qtdFilhos, const std::string &salario, const std::string &matricula,
-            const Data &ingressoEmpresa, float participacaoLucros);
+    Gerente(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal,
+            std::string estadoCivil, int qtdFilhos, float salario, std::string matricula,
+            Data ingressoEmpresa, float participacaoLucros);
 
     /**
      * @brief Obtém a participação nos lucros do Gerente.
@@ -53,14 +53,14 @@ public:
      * @param diasFaltas O número de dias de faltas do Gerente.
      * @return O salário calculado.
      */
-    double calcularSalario(int diasFaltas) override;
+    float calcularSalario(int diasFaltas) override;
 
     /**
      * @brief Calcula a rescisão do Gerente com base na data de desligamento.
      * @param desligamento A data de desligamento do Gerente.
      * @return O valor da rescisão calculado.
      */
-    double calcularRecisao(const Data &desligamento) override;
+    float calcularRecisao(Data desligamento) override;
 };
 
 #endif // GERENTE_HPP

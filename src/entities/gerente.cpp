@@ -1,13 +1,17 @@
 #include "entities/gerente.hpp"
 
-Gerente::Gerente() : Pessoa(), Funcionario(), participacaoLucros(0.0f) {}
+Gerente::Gerente() : participacaoLucros(0.0f)
+{
+}
 
-Gerente::Gerente(const std::string &nome, const std::string &cpf, const Data &dataNascimento, const Endereco &enderecoPessoal,
-                 const std::string &estadoCivil, int qtdFilhos, const std::string &salario, const std::string &matricula,
-                 const Data &ingressoEmpresa, float participacaoLucros)
+Gerente::Gerente(std::string nome, std::string cpf, Data dataNascimento, Endereco enderecoPessoal,
+                 std::string estadoCivil, int qtdFilhos, float salario, std::string matricula,
+                 Data ingressoEmpresa, float participacaoLucros)
     : Pessoa(nome, cpf, dataNascimento, enderecoPessoal, estadoCivil, qtdFilhos),
       Funcionario(salario, matricula, ingressoEmpresa),
-      participacaoLucros(participacaoLucros) {}
+      participacaoLucros(participacaoLucros)
+{
+}
 
 float Gerente::getParticipacaoLucros() const
 {
@@ -19,16 +23,42 @@ void Gerente::setParticipacaoLucros(float participacaoLucros)
     this->participacaoLucros = participacaoLucros;
 }
 
-double Gerente::calcularSalario(int diasFaltas)
+float Gerente::calcularSalario(int diasFaltas)
 {
-    double salario = 0;
-    // TODO: Ver regra de salário do gernete.
-    return salario;
+    float salarioBase = getSalario();
+
+    // Descontar as faltas do salário base
+    salarioBase -= (salarioBase / 30) * diasFaltas;
+
+    // Somar a participação nos lucros
+    salarioBase += participacaoLucros;
+
+    // Adicionar o adicional por filho
+    salarioBase += getQtdFilhos() * 100.0f;
+
+    return salarioBase;
 }
 
-double Gerente::calcularRecisao(const Data &desligamento)
+float Gerente::calcularRecisao(Data desligamento)
 {
-    double recisao = 0;
-    // TODO: Ver regra de recisão do gerente.
-    return recisao;
+    Data dataIngresso = getIngressoEmpresa();
+
+    // Converter a data de ingresso para fração de ano
+    float fracaoAnoIngresso = static_cast<float>(dataIngresso.dia) / 365.0f;
+    fracaoAnoIngresso += static_cast<float>(dataIngresso.mes) / 12.0f;
+    fracaoAnoIngresso += static_cast<float>(dataIngresso.ano);
+
+    // Converter a data de desligamento para fração de ano
+    float fracaoAnoDesligamento = static_cast<float>(desligamento.dia) / 365.0f;
+    fracaoAnoDesligamento += static_cast<float>(desligamento.mes) / 12.0f;
+    fracaoAnoDesligamento += static_cast<float>(desligamento.ano);
+
+    // Calcular o tempo de trabalho em anos
+    float tempoTrabalho = fracaoAnoDesligamento - fracaoAnoIngresso;
+
+    // Calcular a rescisão considerando o salário base por ano trabalhado
+    float salarioBaseAnual = getSalario();
+    float salarioRecisao = salarioBaseAnual * tempoTrabalho;
+
+    return salarioRecisao;
 }
