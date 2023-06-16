@@ -53,14 +53,14 @@ public:
      * @param diasFaltas O número de dias de faltas do Gerente.
      * @return O salário calculado.
      */
-    float calcularSalario(int diasFaltas) override;
+    float calcularSalario(int diasFaltas);
 
     /**
      * @brief Calcula a rescisão do Gerente com base na data de desligamento.
      * @param desligamento A data de desligamento do Gerente.
      * @return O valor da rescisão calculado.
      */
-    float calcularRecisao(Data desligamento) override;
+    float calcularRescisao(Data desligamento);
 };
 
 #endif // GERENTE_HPP

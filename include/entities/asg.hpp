@@ -53,14 +53,14 @@ public:
      * @param diasFaltas O número de dias de faltas do ASG.
      * @return O salário calculado do ASG.
      */
-    float calcularSalario(int diasFaltas) override;
+    float calcularSalario(int diasFaltas);
 
     /**
      * @brief Calcula o valor da rescisão do ASG com base na data de desligamento.
      * @param desligamento A data de desligamento do ASG.
      * @return O valor da rescisão calculado do ASG.
      */
-    float calcularRecisao(Data desligamento) override;
+    float calcularRescisao(Data desligamento);
 };
 
 #endif // ASG_HPP

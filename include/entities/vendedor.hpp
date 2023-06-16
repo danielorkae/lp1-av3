@@ -52,14 +52,14 @@ public:
      * @param diasFaltas O número de dias de faltas do Vendedor.
      * @return O salário calculado.
      */
-    float calcularSalario(int diasFaltas) override;
+    float calcularSalario(int diasFaltas);
 
     /**
      * @brief Calcula a rescisão do Vendedor com base na data de desligamento.
      * @param desligamento A data de desligamento do Vendedor.
      * @return O valor da rescisão calculado.
      */
-    float calcularRecisao(Data desligamento) override;
+    float calcularRescisao(Data desligamento);
 };
 
 #endif // VENDEDOR_HPP
