@@ -809,70 +809,67 @@ void Empresa::calculaTodoOsSalarios()
     stringstream buffer;
 
     float totalSalarios = 0.0;
-    float faturamentoMensal = 0.0;
+    float faturamentoMensal = 20957.15; // Valor fictício para o faturamento mensal
 
-    buffer << "Relatório Financeiro\n\n";
+    buffer << "######### Relatório Financeiro ########\n\n";
 
     // Cálculos para cada ASG
-    buffer << "ASGs:\n";
+    buffer << "Cargo: ASG\n";
     float totalSalariosASG = 0.0;
     for (auto &asg : asgs)
     {
         float salario = asg.calcularSalario(0);
         totalSalariosASG += salario;
-        buffer << "Nome: " << asg.getNome() << ", Cargo: ASG, Salário: " << salario << " reais\n";
+        buffer << asg.getMatricula() << " - " << asg.getNome() << " - R$ " << salario << "\n";
     }
-    buffer << "Custo total de ASGs: " << totalSalariosASG << " reais\n\n";
+    buffer << "Total ASG: " << totalSalariosASG << "\n\n";
     totalSalarios += totalSalariosASG;
 
     // Cálculos para cada Vendedor
-    buffer << "Vendedores:\n";
+    buffer << "Cargo: Vendedor\n";
     float totalSalariosVendedores = 0.0;
     for (auto &vendedor : vendedores)
     {
         float salario = vendedor.calcularSalario(0);
         totalSalariosVendedores += salario;
-        buffer << "Nome: " << vendedor.getNome() << ", Cargo: Vendedor, Salário: " << salario << " reais\n";
+        buffer << vendedor.getMatricula() << " - " << vendedor.getNome() << " - R$ " << salario << "\n";
     }
-    buffer << "Custo total de Vendedores: " << totalSalariosVendedores << " reais\n\n";
+    buffer << "Total Vendedor: " << totalSalariosVendedores << "\n\n";
     totalSalarios += totalSalariosVendedores;
 
     // Cálculos para cada Gerente
-    buffer << "Gerentes:\n";
+    buffer << "Cargo: Gerente\n";
     float totalSalariosGerentes = 0.0;
     for (auto &gerente : gerentes)
     {
         float salario = gerente.calcularSalario(0);
         totalSalariosGerentes += salario;
-        buffer << "Nome: " << gerente.getNome() << ", Cargo: Gerente, Salário: " << salario << " reais\n";
+        buffer << gerente.getMatricula() << " - " << gerente.getNome() << " - R$ " << salario << "\n";
     }
-    buffer << "Custo total de Gerentes: " << totalSalariosGerentes << " reais\n\n";
+    buffer << "Total Gerente: " << totalSalariosGerentes << "\n\n";
     totalSalarios += totalSalariosGerentes;
 
-    // Cálculo do faturamento mensal (valor fictício)
-    faturamentoMensal = 10000.0; // Valor fictício
-    buffer << "Faturamento Mensal: " << faturamentoMensal << " reais\n";
+    buffer << "CUSTO TOTAL: R$ " << totalSalarios << "\n\n";
+    buffer << "FATURAMENTO MENSAL: R$ " << faturamentoMensal << "\n\n";
 
-    // Cálculo das porcentagens e custo total
+    // Cálculo das porcentagens
     float porcentagemASG = (totalSalariosASG / totalSalarios) * 100.0;
     float porcentagemVendedores = (totalSalariosVendedores / totalSalarios) * 100.0;
     float porcentagemGerentes = (totalSalariosGerentes / totalSalarios) * 100.0;
-    buffer << "Porcentagem de custo de ASGs: " << porcentagemASG << "%\n";
-    buffer << "Porcentagem de custo de Vendedores: " << porcentagemVendedores << "%\n";
-    buffer << "Porcentagem de custo de Gerentes: " << porcentagemGerentes << "%\n\n";
-
-    buffer << "Custo total: " << totalSalarios << " reais\n";
+    buffer << "Custo ASG(%): " << porcentagemASG << "%\n";
+    buffer << "Custo Vendedor(%): " << porcentagemVendedores << "%\n";
+    buffer << "Custo Gerente(%): " << porcentagemGerentes << "%\n\n";
 
     // Cálculo do lucro
     float lucro = faturamentoMensal - totalSalarios;
-    buffer << "Lucro: " << lucro << " reais\n";
+    buffer << "LUCRO DA EMPRESA: R$ " << lucro << "\n\n";
     if (lucro >= 0)
     {
-        buffer << "A empresa obteve lucro.\n";
+        buffer << "SITUAÇÃO: Lucro\n";
     }
     else
     {
-        buffer << "A empresa teve prejuízo.\n";
+        buffer << "SITUAÇÃO: Prejuízo\n";
     }
 
     std::cout << buffer.str();
