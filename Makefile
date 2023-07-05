@@ -21,6 +21,7 @@ all: $(EXEC)
 
 # Regra para gerar o executável
 $(EXEC): $(OBJS)
+	mkdir -p $(@D)
 	$(CC) $(CFLAGS) $^ -o $@
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
