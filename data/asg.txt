@@ -19,7 +19,7 @@ Bela Morada
 72.385-9
 1320
 0.05
-2
+0
 ***** Data de ingresso (ano, mes, dia) ****
 2017
 9
@@ -71,7 +71,7 @@ Dr. Pedro Souza
 72.280-8
 1320
 0.05
-3
+0
 ***** Data de ingresso (ano, mes, dia) ****
 2010
 2
