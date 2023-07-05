@@ -561,7 +561,7 @@ void Empresa::salvarAsgs()
         int i = 0;
         for (const auto &asg : asgs)
         {
-            buffer << "##############################################" << endl;
+            buffer << "#########################################################" << endl;
             buffer << "ASG Nº: " << i++ << endl;
             buffer << "##### DADOS PESSOAIS #####" << endl;
             buffer << asg.getNome() << endl;
@@ -591,7 +591,6 @@ void Empresa::salvarAsgs()
             buffer << asg.getIngressoEmpresa().ano << endl;
             buffer << asg.getIngressoEmpresa().mes << endl;
             buffer << asg.getIngressoEmpresa().dia << endl;
-            buffer << endl; // Linha em branco para separar os registros
         }
 
         std::cout << buffer.str() << endl;
@@ -960,58 +959,63 @@ void Empresa::contratarFuncionario()
     fstream arquivo = abrirArquivo("novoFuncionario.txt");
 
     string tipoFuncionario;
+    string linha;
     getline(arquivo, tipoFuncionario);
 
-    // Leitura dos dados pessoais
-    string nome;
-    getline(arquivo, nome);
-    string cpf;
-    getline(arquivo, cpf);
-    int qtdFilhos;
-    arquivo >> qtdFilhos;
-    arquivo.ignore(); // Descartar o caractere de nova linha
-    string estadoCivil;
-    getline(arquivo, estadoCivil);
+    getline(arquivo, linha); // Ignorar linha "##### DADOS PESSOAIS #####"
+    getline(arquivo, linha);
+    string nome = linha;
+    getline(arquivo, linha);
+    string cpf = linha;
+    getline(arquivo, linha);
+    int qtdFilhos = stoi(linha);
+    getline(arquivo, linha);
+    string estadoCivil = linha;
 
-    // Leitura do endereço pessoal
-    Endereco enderecoPessoal;
-    getline(arquivo, enderecoPessoal.cidade);
-    getline(arquivo, enderecoPessoal.cep);
-    getline(arquivo, enderecoPessoal.bairro);
-    getline(arquivo, enderecoPessoal.rua);
-    arquivo >> enderecoPessoal.numero;
-    arquivo.ignore(); // Descartar o caractere de nova linha
+    getline(arquivo, linha); // Linha de separação "***** Endereço (cidade, cep, bairro, rua e numero) ****"
+    getline(arquivo, linha);
+    string cidade = linha;
+    getline(arquivo, linha);
+    string cep = linha;
+    getline(arquivo, linha);
+    string bairro = linha;
+    getline(arquivo, linha);
+    string rua = linha;
+    getline(arquivo, linha);
+    int numero = stoi(linha);
+    Endereco enderecoPessoal{cidade, bairro, rua, cep, numero};
 
-    // Leitura da data de nascimento
-    Data dataNascimento;
-    arquivo >> dataNascimento.ano;
-    arquivo >> dataNascimento.mes;
-    arquivo >> dataNascimento.dia;
-    arquivo.ignore(); // Descartar o caractere de nova linha
+    getline(arquivo, linha); // Linha de separação "***** Data de nascimento (ano, mes, dia) ****"
+    getline(arquivo, linha);
+    int anoNascimento = stoi(linha);
+    getline(arquivo, linha);
+    int mesNascimento = stoi(linha);
+    getline(arquivo, linha);
+    int diaNascimento = stoi(linha);
+    Data dataNascimento{anoNascimento, mesNascimento, diaNascimento};
 
-    Pessoa pessoa(nome, cpf, dataNascimento, enderecoPessoal, estadoCivil, qtdFilhos);
+    getline(arquivo, linha); // Ignorar linha "##### DADOS FUNCIONAIS #####"
+    getline(arquivo, linha);
+    string matricula = linha;
+    getline(arquivo, linha);
+    float salarioBase = stof(linha);
+    getline(arquivo, linha);
+    string salarioVariante = linha;
+    getline(arquivo, linha);
+    int diasFalta = stoi(linha);
 
-    // Leitura dos dados funcionais
-    string matricula;
-    getline(arquivo, matricula);
-    float salarioBase;
-    arquivo >> salarioBase;
-    arquivo.ignore(); // Descartar o caractere de nova linha
-    string salarioVariante;
-    arquivo >> salarioVariante;
-    int faltas;
-    arquivo >> faltas;
-    arquivo.ignore(); // Descartar o caractere de nova linha
-
-    // Leitura da data de ingresso
-    Data dataIngresso;
-    arquivo >> dataIngresso.ano;
-    arquivo >> dataIngresso.mes;
-    arquivo >> dataIngresso.dia;
-    arquivo.ignore(); // Descartar o caractere de nova linha
+    getline(arquivo, linha); // Linha de separação "***** Data de ingresso (ano, mes, dia) ****"
+    getline(arquivo, linha);
+    int anoIngresso = stoi(linha);
+    getline(arquivo, linha);
+    int mesIngresso = stoi(linha);
+    getline(arquivo, linha);
+    int diaIngresso = stoi(linha);
+    Data dataIngresso{anoIngresso, mesIngresso, diaIngresso};
 
     if (tipoFuncionario == "ASG")
     {
+        cout << "Salário Variante: " << salarioVariante << endl;
         asgs.push_back(Asg(nome, cpf, dataNascimento, enderecoPessoal, estadoCivil, qtdFilhos, salarioBase, matricula, dataIngresso, stof(salarioVariante)));
         salvarAsgs();
     }
