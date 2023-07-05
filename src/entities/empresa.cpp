@@ -534,82 +534,98 @@ void Empresa::salvarAsgs()
 {
     fstream arquivo = abrirArquivo("asgs.txt", ios_base::out | ios_base::trunc);
 
+    stringstream buffer;
+
+    std::cout << ">>> Salvando Asgs..." << endl;
+
+    int i = 1;
     for (const auto &asg : asgs)
     {
-        arquivo << "ASG Nº: " << asg.getMatricula() << endl;
-        arquivo << "##### DADOS PESSOAIS #####" << endl;
-        arquivo << asg.getNome() << endl;
-        arquivo << asg.getCpf() << endl;
-        arquivo << asg.getQtdFilhos() << endl;
-        arquivo << asg.getEstadoCivil() << endl;
+        buffer << "##############################################" << endl;
+        buffer << "ASG Nº: " << i++ << endl;
+        buffer << "##### DADOS PESSOAIS #####" << endl;
+        buffer << asg.getNome() << endl;
+        buffer << asg.getCpf() << endl;
+        buffer << asg.getQtdFilhos() << endl;
+        buffer << asg.getEstadoCivil() << endl;
 
-        arquivo << "***** Endereço (cidade, cep, bairro, rua e numero) ****" << endl;
-        arquivo << asg.getEnderecoPessoal().cidade << endl;
-        arquivo << asg.getEnderecoPessoal().cep << endl;
-        arquivo << asg.getEnderecoPessoal().bairro << endl;
-        arquivo << asg.getEnderecoPessoal().rua << endl;
-        arquivo << asg.getEnderecoPessoal().numero << endl;
+        buffer << "***** Endereço (cidade, cep, bairro, rua e numero) ****" << endl;
+        buffer << asg.getEnderecoPessoal().cidade << endl;
+        buffer << asg.getEnderecoPessoal().cep << endl;
+        buffer << asg.getEnderecoPessoal().bairro << endl;
+        buffer << asg.getEnderecoPessoal().rua << endl;
+        buffer << asg.getEnderecoPessoal().numero << endl;
 
-        arquivo << "***** Data de nascimento (ano, mes, dia) ****" << endl;
-        arquivo << asg.getDataNascimento().ano << endl;
-        arquivo << asg.getDataNascimento().mes << endl;
-        arquivo << asg.getDataNascimento().dia << endl;
+        buffer << "***** Data de nascimento (ano, mes, dia) ****" << endl;
+        buffer << asg.getDataNascimento().ano << endl;
+        buffer << asg.getDataNascimento().mes << endl;
+        buffer << asg.getDataNascimento().dia << endl;
 
-        arquivo << "##### DADOS FUNCIONAIS #####" << endl;
-        arquivo << asg.getMatricula() << endl;
-        arquivo << asg.getSalario() << endl;
-        arquivo << asg.getAdicionalInsalubridade() << endl;
-        arquivo << "0" << endl;
-        
-        arquivo << "***** Data de ingresso (ano, mes, dia) ****" << endl;
-        arquivo << asg.getIngressoEmpresa().ano << endl;
-        arquivo << asg.getIngressoEmpresa().mes << endl;
-        arquivo << asg.getIngressoEmpresa().dia << endl;
-        arquivo << endl; // Linha em branco para separar os registros
+        buffer << "##### DADOS FUNCIONAIS #####" << endl;
+        buffer << asg.getMatricula() << endl;
+        buffer << asg.getSalario() << endl;
+        buffer << asg.getAdicionalInsalubridade() << endl;
+        buffer << "0" << endl;
+
+        buffer << "***** Data de ingresso (ano, mes, dia) ****" << endl;
+        buffer << asg.getIngressoEmpresa().ano << endl;
+        buffer << asg.getIngressoEmpresa().mes << endl;
+        buffer << asg.getIngressoEmpresa().dia << endl;
+        buffer << endl; // Linha em branco para separar os registros
     }
+
+    std::cout << buffer << endl;
+
+    arquivo << buffer.str();
     arquivo.close();
-    cout << "Arquivo asgs.txt salvo com sucesso!" << endl;
 }
 
 void Empresa::salvarVendedores()
 {
     fstream arquivo = abrirArquivo("vendedores.txt", ios_base::out | ios_base::trunc);
 
-    arquivo << "##############################################" << endl;
-    arquivo << "VENDEDOR Nº: " << vendedores.size() << endl;
+    stringstream buffer;
 
+    std::cout << ">>> Salvando vendedores..." << endl;
+
+    int i = 1;
     for (const Vendedor &vendedor : vendedores)
     {
-        arquivo << "##### DADOS PESSOAIS #####" << endl;
-        arquivo << vendedor.getNome() << endl;
-        arquivo << vendedor.getCpf() << endl;
-        arquivo << vendedor.getQtdFilhos() << endl;
-        arquivo << vendedor.getEstadoCivil() << endl;
+        buffer << "##############################################" << endl;
+        buffer << "VENDEDOR Nº: " << i++ << endl;
+        buffer << "##### DADOS PESSOAIS #####" << endl;
+        buffer << vendedor.getNome() << endl;
+        buffer << vendedor.getCpf() << endl;
+        buffer << vendedor.getQtdFilhos() << endl;
+        buffer << vendedor.getEstadoCivil() << endl;
 
-        arquivo << "***** Endereço (cidade, cep, bairro, rua e numero) ****" << endl;
-        arquivo << vendedor.getEnderecoPessoal().cidade << endl;
-        arquivo << vendedor.getEnderecoPessoal().cep << endl;
-        arquivo << vendedor.getEnderecoPessoal().bairro << endl;
-        arquivo << vendedor.getEnderecoPessoal().rua << endl;
-        arquivo << vendedor.getEnderecoPessoal().numero << endl;
+        buffer << "***** Endereço (cidade, cep, bairro, rua e numero) ****" << endl;
+        buffer << vendedor.getEnderecoPessoal().cidade << endl;
+        buffer << vendedor.getEnderecoPessoal().cep << endl;
+        buffer << vendedor.getEnderecoPessoal().bairro << endl;
+        buffer << vendedor.getEnderecoPessoal().rua << endl;
+        buffer << vendedor.getEnderecoPessoal().numero << endl;
 
-        arquivo << "***** Data de nascimento (ano, mes, dia) ****" << endl;
-        arquivo << vendedor.getDataNascimento().ano << endl;
-        arquivo << vendedor.getDataNascimento().mes << endl;
-        arquivo << vendedor.getDataNascimento().dia << endl;
+        buffer << "***** Data de nascimento (ano, mes, dia) ****" << endl;
+        buffer << vendedor.getDataNascimento().ano << endl;
+        buffer << vendedor.getDataNascimento().mes << endl;
+        buffer << vendedor.getDataNascimento().dia << endl;
 
-        arquivo << "##### DADOS FUNCIONAIS #####" << endl;
-        arquivo << vendedor.getMatricula() << endl;
-        arquivo << vendedor.getSalario() << endl;
-        arquivo << vendedor.getTipoVendedor() << endl;
-        arquivo << 0 << endl;
+        buffer << "##### DADOS FUNCIONAIS #####" << endl;
+        buffer << vendedor.getMatricula() << endl;
+        buffer << vendedor.getSalario() << endl;
+        buffer << vendedor.getTipoVendedor() << endl;
+        buffer << 0 << endl;
 
-        arquivo << "***** Data de ingresso (ano, mes, dia) ****" << endl;
-        arquivo << vendedor.getIngressoEmpresa().ano << endl;
-        arquivo << vendedor.getIngressoEmpresa().mes << endl;
-        arquivo << vendedor.getIngressoEmpresa().dia << endl;
+        buffer << "***** Data de ingresso (ano, mes, dia) ****" << endl;
+        buffer << vendedor.getIngressoEmpresa().ano << endl;
+        buffer << vendedor.getIngressoEmpresa().mes << endl;
+        buffer << vendedor.getIngressoEmpresa().dia << endl;
     }
 
+    std::cout << buffer.str();
+
+    arquivo << buffer.str();
     arquivo.close();
 }
 
@@ -617,47 +633,48 @@ void Empresa::salvarGerentes()
 {
     fstream arquivo = abrirArquivo("gerentes.txt", ios_base::out);
 
-    if (!arquivo.is_open())
-    {
-        cout << "Erro ao abrir o arquivo" << endl;
-        return;
-    }
+    stringstream buffer;
 
-    arquivo << "##############################################" << endl;
-    arquivo << "GERENTE Nº: " << gerentes.size() << endl;
+    std::cout << ">>> Salvando gerentes..." << endl;
 
+    int i = 0;
     for (const Gerente &gerente : gerentes)
     {
-        arquivo << "##### DADOS PESSOAIS #####" << endl;
-        arquivo << gerente.getNome() << endl;
-        arquivo << gerente.getCpf() << endl;
-        arquivo << gerente.getQtdFilhos() << endl;
-        arquivo << gerente.getEstadoCivil() << endl;
+        buffer << "##############################################" << endl;
+        buffer << "GERENTE Nº: " << i++ << endl;
+        buffer << "##### DADOS PESSOAIS #####" << endl;
+        buffer << gerente.getNome() << endl;
+        buffer << gerente.getCpf() << endl;
+        buffer << gerente.getQtdFilhos() << endl;
+        buffer << gerente.getEstadoCivil() << endl;
 
-        arquivo << "***** Endereço (cidade, cep, bairro, rua e numero) ****" << endl;
-        arquivo << gerente.getEnderecoPessoal().cidade << endl;
-        arquivo << gerente.getEnderecoPessoal().cep << endl;
-        arquivo << gerente.getEnderecoPessoal().bairro << endl;
-        arquivo << gerente.getEnderecoPessoal().rua << endl;
-        arquivo << gerente.getEnderecoPessoal().numero << endl;
+        buffer << "***** Endereço (cidade, cep, bairro, rua e numero) ****" << endl;
+        buffer << gerente.getEnderecoPessoal().cidade << endl;
+        buffer << gerente.getEnderecoPessoal().cep << endl;
+        buffer << gerente.getEnderecoPessoal().bairro << endl;
+        buffer << gerente.getEnderecoPessoal().rua << endl;
+        buffer << gerente.getEnderecoPessoal().numero << endl;
 
-        arquivo << "***** Data de nascimento (ano, mes, dia) ****" << endl;
-        arquivo << gerente.getDataNascimento().ano << endl;
-        arquivo << gerente.getDataNascimento().mes << endl;
-        arquivo << gerente.getDataNascimento().dia << endl;
+        buffer << "***** Data de nascimento (ano, mes, dia) ****" << endl;
+        buffer << gerente.getDataNascimento().ano << endl;
+        buffer << gerente.getDataNascimento().mes << endl;
+        buffer << gerente.getDataNascimento().dia << endl;
 
-        arquivo << "##### DADOS FUNCIONAIS #####" << endl;
-        arquivo << gerente.getMatricula() << endl;
-        arquivo << gerente.getSalario() << endl;
-        arquivo << gerente.getParticipacaoLucros() << endl;
-        arquivo << 0 << endl;
+        buffer << "##### DADOS FUNCIONAIS #####" << endl;
+        buffer << gerente.getMatricula() << endl;
+        buffer << gerente.getSalario() << endl;
+        buffer << gerente.getParticipacaoLucros() << endl;
+        buffer << 0 << endl;
 
-        arquivo << "***** Data de ingresso (ano, mes, dia) ****" << endl;
-        arquivo << gerente.getIngressoEmpresa().ano << endl;
-        arquivo << gerente.getIngressoEmpresa().mes << endl;
-        arquivo << gerente.getIngressoEmpresa().dia << endl;
+        buffer << "***** Data de ingresso (ano, mes, dia) ****" << endl;
+        buffer << gerente.getIngressoEmpresa().ano << endl;
+        buffer << gerente.getIngressoEmpresa().mes << endl;
+        buffer << gerente.getIngressoEmpresa().dia << endl;
     }
 
+    std::cout << buffer.str();
+
+    arquivo << buffer.str();
     arquivo.close();
 }
 
