@@ -137,6 +137,21 @@ public:
     void carregaDono();
 
     /**
+     * @brief Salva os dados dos ASGs no arquivo "asg.txt".
+     */
+    void salvarAsgs();
+
+    /**
+     * @brief Salva os dados dos Vendedores no arquivo "vendedor.txt".
+     */
+    void salvarVendedores();
+
+    /**
+     * @brief Salva os dados dos Gerentes no arquivo "gerente.txt".
+     */
+    void salvarGerentes();
+
+    /**
      * @brief Imprime os atributos de todos os ASGs.
      */
     void imprimeAsgs();
@@ -179,6 +194,14 @@ public:
      * @param desligamento A data de desligamento do funcionário.
      */
     void calcularRescisao(string matricula, Data desligamento);
+
+    /**
+     * @brief Demite um funcionário pelo número de matrícula e data de desligamento.
+     *
+     * @param matricula
+     * @param desligamento
+     */
+    void demitirFuncionario(string matricula, Data desligamento);
 };
 
 #endif // EMPRESA_HPP

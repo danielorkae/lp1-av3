@@ -1,8 +1,10 @@
 #include "entities/empresa.hpp"
+#include "empresa.hpp"
 
 using namespace std;
 
 fstream abrirArquivo(string nomeArquivo);
+fstream abrirArquivo(string nomeArquivo, ios_base::openmode modo);
 
 Empresa::Empresa()
 {
@@ -69,6 +71,11 @@ vector<Gerente> &Empresa::getGerentes()
 
 fstream abrirArquivo(string nomeArquivo)
 {
+    return abrirArquivo(nomeArquivo, ios_base::in | ios_base::app);
+}
+
+fstream abrirArquivo(string nomeArquivo, ios_base::openmode modo)
+{
     try
     {
         // Obtém o diretório do arquivo executável
@@ -84,7 +91,7 @@ fstream abrirArquivo(string nomeArquivo)
         }
 
         fstream file;
-        file.open(filePath, ios::in | ios::app);
+        file.open(filePath, modo);
 
         if (!file.is_open())
         {
@@ -523,6 +530,137 @@ void Empresa::carregaDono()
     }
 }
 
+void Empresa::salvarAsgs()
+{
+    fstream arquivo = abrirArquivo("asgs.txt", ios_base::out | ios_base::trunc);
+
+    for (const auto &asg : asgs)
+    {
+        arquivo << "ASG Nº: " << asg.getMatricula() << endl;
+        arquivo << "##### DADOS PESSOAIS #####" << endl;
+        arquivo << asg.getNome() << endl;
+        arquivo << asg.getCpf() << endl;
+        arquivo << asg.getQtdFilhos() << endl;
+        arquivo << asg.getEstadoCivil() << endl;
+
+        arquivo << "***** Endereço (cidade, cep, bairro, rua e numero) ****" << endl;
+        arquivo << asg.getEnderecoPessoal().cidade << endl;
+        arquivo << asg.getEnderecoPessoal().cep << endl;
+        arquivo << asg.getEnderecoPessoal().bairro << endl;
+        arquivo << asg.getEnderecoPessoal().rua << endl;
+        arquivo << asg.getEnderecoPessoal().numero << endl;
+
+        arquivo << "***** Data de nascimento (ano, mes, dia) ****" << endl;
+        arquivo << asg.getDataNascimento().ano << endl;
+        arquivo << asg.getDataNascimento().mes << endl;
+        arquivo << asg.getDataNascimento().dia << endl;
+
+        arquivo << "##### DADOS FUNCIONAIS #####" << endl;
+        arquivo << asg.getMatricula() << endl;
+        arquivo << asg.getSalario() << endl;
+        arquivo << asg.getAdicionalInsalubridade() << endl;
+        arquivo << "0" << endl;
+        
+        arquivo << "***** Data de ingresso (ano, mes, dia) ****" << endl;
+        arquivo << asg.getIngressoEmpresa().ano << endl;
+        arquivo << asg.getIngressoEmpresa().mes << endl;
+        arquivo << asg.getIngressoEmpresa().dia << endl;
+        arquivo << endl; // Linha em branco para separar os registros
+    }
+    arquivo.close();
+    cout << "Arquivo asgs.txt salvo com sucesso!" << endl;
+}
+
+void Empresa::salvarVendedores()
+{
+    fstream arquivo = abrirArquivo("vendedores.txt", ios_base::out | ios_base::trunc);
+
+    arquivo << "##############################################" << endl;
+    arquivo << "VENDEDOR Nº: " << vendedores.size() << endl;
+
+    for (const Vendedor &vendedor : vendedores)
+    {
+        arquivo << "##### DADOS PESSOAIS #####" << endl;
+        arquivo << vendedor.getNome() << endl;
+        arquivo << vendedor.getCpf() << endl;
+        arquivo << vendedor.getQtdFilhos() << endl;
+        arquivo << vendedor.getEstadoCivil() << endl;
+
+        arquivo << "***** Endereço (cidade, cep, bairro, rua e numero) ****" << endl;
+        arquivo << vendedor.getEnderecoPessoal().cidade << endl;
+        arquivo << vendedor.getEnderecoPessoal().cep << endl;
+        arquivo << vendedor.getEnderecoPessoal().bairro << endl;
+        arquivo << vendedor.getEnderecoPessoal().rua << endl;
+        arquivo << vendedor.getEnderecoPessoal().numero << endl;
+
+        arquivo << "***** Data de nascimento (ano, mes, dia) ****" << endl;
+        arquivo << vendedor.getDataNascimento().ano << endl;
+        arquivo << vendedor.getDataNascimento().mes << endl;
+        arquivo << vendedor.getDataNascimento().dia << endl;
+
+        arquivo << "##### DADOS FUNCIONAIS #####" << endl;
+        arquivo << vendedor.getMatricula() << endl;
+        arquivo << vendedor.getSalario() << endl;
+        arquivo << vendedor.getTipoVendedor() << endl;
+        arquivo << 0 << endl;
+
+        arquivo << "***** Data de ingresso (ano, mes, dia) ****" << endl;
+        arquivo << vendedor.getIngressoEmpresa().ano << endl;
+        arquivo << vendedor.getIngressoEmpresa().mes << endl;
+        arquivo << vendedor.getIngressoEmpresa().dia << endl;
+    }
+
+    arquivo.close();
+}
+
+void Empresa::salvarGerentes()
+{
+    fstream arquivo = abrirArquivo("gerentes.txt", ios_base::out);
+
+    if (!arquivo.is_open())
+    {
+        cout << "Erro ao abrir o arquivo" << endl;
+        return;
+    }
+
+    arquivo << "##############################################" << endl;
+    arquivo << "GERENTE Nº: " << gerentes.size() << endl;
+
+    for (const Gerente &gerente : gerentes)
+    {
+        arquivo << "##### DADOS PESSOAIS #####" << endl;
+        arquivo << gerente.getNome() << endl;
+        arquivo << gerente.getCpf() << endl;
+        arquivo << gerente.getQtdFilhos() << endl;
+        arquivo << gerente.getEstadoCivil() << endl;
+
+        arquivo << "***** Endereço (cidade, cep, bairro, rua e numero) ****" << endl;
+        arquivo << gerente.getEnderecoPessoal().cidade << endl;
+        arquivo << gerente.getEnderecoPessoal().cep << endl;
+        arquivo << gerente.getEnderecoPessoal().bairro << endl;
+        arquivo << gerente.getEnderecoPessoal().rua << endl;
+        arquivo << gerente.getEnderecoPessoal().numero << endl;
+
+        arquivo << "***** Data de nascimento (ano, mes, dia) ****" << endl;
+        arquivo << gerente.getDataNascimento().ano << endl;
+        arquivo << gerente.getDataNascimento().mes << endl;
+        arquivo << gerente.getDataNascimento().dia << endl;
+
+        arquivo << "##### DADOS FUNCIONAIS #####" << endl;
+        arquivo << gerente.getMatricula() << endl;
+        arquivo << gerente.getSalario() << endl;
+        arquivo << gerente.getParticipacaoLucros() << endl;
+        arquivo << 0 << endl;
+
+        arquivo << "***** Data de ingresso (ano, mes, dia) ****" << endl;
+        arquivo << gerente.getIngressoEmpresa().ano << endl;
+        arquivo << gerente.getIngressoEmpresa().mes << endl;
+        arquivo << gerente.getIngressoEmpresa().dia << endl;
+    }
+
+    arquivo.close();
+}
+
 void Empresa::imprimeAsgs()
 {
     for (auto asg : asgs)
@@ -661,4 +799,98 @@ void Empresa::calcularRescisao(string matricula, Data desligamento)
         cout << "Recisão do Funcionário: " << funcionario->calcularRescisao(desligamento) << endl
              << endl;
     }
+}
+
+void Empresa::demitirFuncionario(string matricula, Data desligamento)
+{
+    const string nomeArquivo = "relatorioDemissional.txt";
+    ofstream arquivo(nomeArquivo);
+
+    Funcionario *funcionario = nullptr;
+    Pessoa *pessoa = nullptr;
+    string cargo = "";
+
+    auto asg = asgs.begin();
+    while (asg != asgs.end())
+    {
+        if (asg->getMatricula() == matricula)
+        {
+            funcionario = &(*asg);
+            pessoa = &(*asg);
+            cargo = "ASG";
+            asgs.erase(asg);
+            break;
+        }
+        ++asg;
+    }
+
+    if (funcionario != nullptr)
+    {
+        salvarAsgs();
+    }
+    else
+    {
+        auto vendedor = vendedores.begin();
+        while (vendedor != vendedores.end())
+        {
+            if (vendedor->getMatricula() == matricula)
+            {
+                funcionario = &(*vendedor);
+                pessoa = &(*vendedor);
+                cargo = "Vendedor";
+                break;
+            }
+
+            ++vendedor;
+        }
+    }
+
+    if (funcionario != = nullptr)
+    {
+        salvarVendedores();
+    }
+    else
+    {
+        auto gerente = gerentes.begin();
+        while (gerente != gerentes.end())
+        {
+            if (gerente->getMatricula() == matricula)
+            {
+                funcionario = &(*gerente);
+                pessoa = &(*gerente);
+                cargo = "Gerente";
+                break;
+            }
+
+            ++gerente;
+        }
+    }
+
+    if (funcionario != nullptr)
+    {
+        salvarGerentes();
+    }
+    else
+    {
+        cout << "Funcionário não encontrado no sistema" << endl;
+        return;
+    }
+
+    float rescisao = funcionario->calcularRescisao(desligamento);
+
+    Data tempoDeTrabalho = dataDiff(desligamento, funcionario->getIngressoEmpresa());
+
+    arquivo << "##############################\n";
+    arquivo << "Relatorio Demissional\n";
+    arquivo << "##############################\n";
+    arquivo << "Cargo: " << cargo << "\n";
+    arquivo << "Nome: " << pessoa->getNome() << "\n";
+    arquivo << "CPF: " << pessoa->getCpf() << "\n";
+    arquivo << "Matrícula: " << funcionario->getMatricula() << "\n";
+    arquivo << "Data de ingresso: " << funcionario->getIngressoEmpresa().dia << "/" << funcionario->getIngressoEmpresa().mes << "/" << funcionario->getIngressoEmpresa().ano << "\n";
+    arquivo << "Data de demissão: " << desligamento.dia << "/" << desligamento.mes << "/" << desligamento.ano << "\n";
+    arquivo << "******************************\n";
+    arquivo << "Valor de rescisão: R$ " << rescisao << "\n";
+    arquivo << "******************************\n";
+    arquivo << "Tempo de Trabalho: " << tempoDeTrabalho.ano - desligamento.ano << " anos, " << tempoDeTrabalho.mes - desligamento.mes << " meses e " << tempoDeTrabalho.dia - desligamento.dia << " dias\n";
 }
