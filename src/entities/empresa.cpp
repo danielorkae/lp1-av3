@@ -187,6 +187,21 @@ void Empresa::carregarFuncoes()
                 Data desligamento{ano, mes, dia};
                 calcularRescisao(matricula, desligamento);
             }
+            else if (linha.find("demitirFuncionario()") == 0)
+            {
+                // Extrai a matrícula, ano, mês e dia da próxima linha
+                string matriculaStr, anoStr, mesStr, diaStr;
+                getline(arquivo, matriculaStr);
+                getline(arquivo, anoStr);
+                getline(arquivo, mesStr);
+                getline(arquivo, diaStr);
+                string matricula = matriculaStr;
+                int ano = stoi(anoStr);
+                int mes = stoi(mesStr);
+                int dia = stoi(diaStr);
+                Data desligamento{ano, mes, dia};
+                demitirFuncionario(matricula, desligamento);
+            }
             else
             {
                 throw runtime_error("Erro: função desconhecida: " + linha);
