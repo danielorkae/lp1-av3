@@ -967,7 +967,7 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento)
 
     float rescisao = funcionario->calcularRescisao(desligamento);
 
-    Data tempoDeTrabalho = dataDiff(desligamento, funcionario->getIngressoEmpresa());
+    Data tempoDeTrabalho = dataDiff(funcionario->getIngressoEmpresa(), desligamento);
 
     arquivo << "##############################\n";
     arquivo << "Relatorio Demissional\n";
@@ -981,7 +981,7 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento)
     arquivo << "******************************\n";
     arquivo << "Valor de rescisão: R$ " << rescisao << "\n";
     arquivo << "******************************\n";
-    arquivo << "Tempo de Trabalho: " << tempoDeTrabalho.ano - desligamento.ano << " anos, " << tempoDeTrabalho.mes - desligamento.mes << " meses e " << tempoDeTrabalho.dia - desligamento.dia << " dias\n";
+    arquivo << "Tempo de Trabalho: " << tempoDeTrabalho.ano << " anos, " << tempoDeTrabalho.mes << " meses e " << tempoDeTrabalho.dia << " dias\n";
 }
 
 void Empresa::contratarFuncionario()

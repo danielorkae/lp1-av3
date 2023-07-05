@@ -31,13 +31,13 @@ Data dataDiff(Data dataMenor, Data dataMaior)
     diferenca.mes = dataMaior.mes - dataMenor.mes;
     diferenca.dia = dataMaior.dia - dataMenor.dia;
 
-    if (diferenca.mes < 0)
+    if (diferenca.mes <= 0)
     {
         diferenca.ano--;
         diferenca.mes += 12;
     }
 
-    if (diferenca.dia < 0)
+    if (diferenca.dia <= 0)
     {
         int mesAnterior = dataMaior.mes - 1;
 
@@ -46,6 +46,7 @@ Data dataDiff(Data dataMenor, Data dataMaior)
             mesAnterior = 12;
         }
 
+        diferenca.mes--;
         int diasNoMesAnterior = obterDiasNoMes(mesAnterior, dataMaior.ano);
         diferenca.dia += diasNoMesAnterior;
     }
