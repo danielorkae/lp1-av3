@@ -1,5 +1,4 @@
 #include "entities/empresa.hpp"
-#include "empresa.hpp"
 
 using namespace std;
 
@@ -589,7 +588,7 @@ void Empresa::salvarAsgs()
         buffer << endl; // Linha em branco para separar os registros
     }
 
-    std::cout << buffer << endl;
+    std::cout << buffer.str() << endl;
 
     arquivo << buffer.str();
     arquivo.close();
