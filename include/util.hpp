@@ -19,4 +19,6 @@ typedef struct
     int numero;
 } Endereco;
 
+Data dataDiff(Data dataMenor, Data dataMaior);
+
 #endif // UTIL_HPP
