@@ -202,6 +202,11 @@ public:
      * @param desligamento
      */
     void demitirFuncionario(string matricula, Data desligamento);
+
+    /**
+     * @brief Contrata um funcionário.
+     */
+    void contratarFuncionario();
 };
 
 #endif // EMPRESA_HPP

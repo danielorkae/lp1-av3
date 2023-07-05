@@ -17,3 +17,4 @@ demitirFuncionario()
 2023
 06
 13
+contratarFuncionario()
