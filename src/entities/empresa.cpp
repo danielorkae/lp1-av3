@@ -278,7 +278,7 @@ void Empresa::carregarAsg()
                 string rua = linha;
                 getline(arquivo, linha);
                 int numero = stoi(linha);
-                Endereco endereco{cidade, cep, bairro, rua, numero};
+                Endereco endereco{cidade, bairro, rua, cep, numero};
 
                 getline(arquivo, linha); // Linha de separação "***** Data de nascimento (ano, mes, dia) ****"
                 getline(arquivo, linha);
@@ -357,7 +357,7 @@ void Empresa::carregarVendedor()
                 string rua = linha;
                 getline(arquivo, linha);
                 int numero = stoi(linha);
-                Endereco endereco{cidade, cep, bairro, rua, numero};
+                Endereco endereco{cidade, bairro, rua, cep, numero};
 
                 getline(arquivo, linha); // Linha de separação "***** Data de nascimento (ano, mes, dia) ****"
                 getline(arquivo, linha);
@@ -436,7 +436,7 @@ void Empresa::carregarGerente()
                 string rua = linha;
                 getline(arquivo, linha);
                 int numero = stoi(linha);
-                Endereco endereco{cidade, cep, bairro, rua, numero};
+                Endereco endereco{cidade, bairro, rua, cep, numero};
 
                 getline(arquivo, linha); // Linha de separação "***** Data de nascimento (ano, mes, dia) ****"
                 getline(arquivo, linha);
@@ -514,7 +514,7 @@ void Empresa::carregaDono()
                 string rua = linha;
                 getline(arquivo, linha);
                 int numero = stoi(linha);
-                Endereco endereco{cidade, cep, bairro, rua, numero};
+                Endereco endereco{cidade, bairro, rua, cep, numero};
 
                 getline(arquivo, linha);
                 int anoNascimento = stoi(linha);
@@ -546,13 +546,13 @@ void Empresa::carregaDono()
 
 void Empresa::salvarAsgs()
 {
-    fstream arquivo = abrirArquivo("asgs.txt", ios_base::out | ios_base::trunc);
+    fstream arquivo = abrirArquivo("asg.txt", ios_base::out | ios_base::trunc);
 
     stringstream buffer;
 
     std::cout << ">>> Salvando Asgs..." << endl;
 
-    int i = 1;
+    int i = 0;
     for (const auto &asg : asgs)
     {
         buffer << "##############################################" << endl;
@@ -596,16 +596,16 @@ void Empresa::salvarAsgs()
 
 void Empresa::salvarVendedores()
 {
-    fstream arquivo = abrirArquivo("vendedores.txt", ios_base::out | ios_base::trunc);
+    fstream arquivo = abrirArquivo("vendedor.txt", ios_base::out | ios_base::trunc);
 
     stringstream buffer;
 
     std::cout << ">>> Salvando vendedores..." << endl;
 
-    int i = 1;
+    int i = 0;
     for (const Vendedor &vendedor : vendedores)
     {
-        buffer << "##############################################" << endl;
+        buffer << "#########################################################" << endl;
         buffer << "VENDEDOR Nº: " << i++ << endl;
         buffer << "##### DADOS PESSOAIS #####" << endl;
         buffer << vendedor.getNome() << endl;
@@ -645,7 +645,7 @@ void Empresa::salvarVendedores()
 
 void Empresa::salvarGerentes()
 {
-    fstream arquivo = abrirArquivo("gerentes.txt", ios_base::out);
+    fstream arquivo = abrirArquivo("gerente.txt", ios_base::out);
 
     stringstream buffer;
 
@@ -654,7 +654,7 @@ void Empresa::salvarGerentes()
     int i = 0;
     for (const Gerente &gerente : gerentes)
     {
-        buffer << "##############################################" << endl;
+        buffer << "#########################################################" << endl;
         buffer << "GERENTE Nº: " << i++ << endl;
         buffer << "##### DADOS PESSOAIS #####" << endl;
         buffer << gerente.getNome() << endl;
