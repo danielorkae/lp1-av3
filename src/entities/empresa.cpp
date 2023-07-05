@@ -597,6 +597,8 @@ void Empresa::salvarAsgs()
 
         arquivo << buffer.str();
         arquivo.close();
+
+        buffer.clear();
     }
     catch (const exception &ex)
     {
@@ -655,6 +657,8 @@ void Empresa::salvarVendedores()
 
         arquivo << buffer.str();
         arquivo.close();
+
+        buffer.clear();
     }
     catch (const exception &ex)
     {
@@ -713,6 +717,8 @@ void Empresa::salvarGerentes()
 
         arquivo << buffer.str();
         arquivo.close();
+        
+        buffer.clear();
     }
     catch (const exception &ex)
     {
@@ -799,55 +805,82 @@ void Empresa::calculaSalarioFuncionario(string matricula)
 
 void Empresa::calculaTodoOsSalarios()
 {
-    fstream arquivo = abrirArquivo("out/resultados.txt");
+    fstream arquivo = abrirArquivo("out/relatorioFinanceiro.txt", ios_base::out | ios_base::trunc);
+    stringstream buffer;
 
-    float totalSalariosASG = 0.0;
-    float totalSalariosVendedores = 0.0;
-    float totalSalariosGerentes = 0.0;
-    float totalSalariosGeral = 0.0;
+    float totalSalarios = 0.0;
+    float faturamentoMensal = 0.0;
 
-    arquivo << "Resultados dos cálculos de salários:\n\n";
+    buffer << "Relatório Financeiro\n\n";
 
     // Cálculos para cada ASG
-    arquivo << "ASGs:\n";
+    buffer << "ASGs:\n";
+    float totalSalariosASG = 0.0;
     for (auto &asg : asgs)
     {
         float salario = asg.calcularSalario(0);
         totalSalariosASG += salario;
-        arquivo << "Nome: " << asg.getNome() << ", Cargo: ASG, Salário: " << salario << "\n";
+        buffer << "Nome: " << asg.getNome() << ", Cargo: ASG, Salário: " << salario << " reais\n";
     }
-    arquivo << "Total de salários de ASGs: " << totalSalariosASG << "\n\n";
+    buffer << "Custo total de ASGs: " << totalSalariosASG << " reais\n\n";
+    totalSalarios += totalSalariosASG;
 
     // Cálculos para cada Vendedor
-    arquivo << "Vendedores:\n";
+    buffer << "Vendedores:\n";
+    float totalSalariosVendedores = 0.0;
     for (auto &vendedor : vendedores)
     {
         float salario = vendedor.calcularSalario(0);
         totalSalariosVendedores += salario;
-        arquivo << "Nome: " << vendedor.getNome() << ", Cargo: Vendedor, Salário: " << salario << "\n";
+        buffer << "Nome: " << vendedor.getNome() << ", Cargo: Vendedor, Salário: " << salario << " reais\n";
     }
-    arquivo << "Total de salários de Vendedores: " << totalSalariosVendedores << "\n\n";
+    buffer << "Custo total de Vendedores: " << totalSalariosVendedores << " reais\n\n";
+    totalSalarios += totalSalariosVendedores;
 
     // Cálculos para cada Gerente
-    arquivo << "Gerentes:\n";
+    buffer << "Gerentes:\n";
+    float totalSalariosGerentes = 0.0;
     for (auto &gerente : gerentes)
     {
         float salario = gerente.calcularSalario(0);
         totalSalariosGerentes += salario;
-        arquivo << "Nome: " << gerente.getNome() << ", Cargo: Gerente, Salário: " << salario << "\n";
+        buffer << "Nome: " << gerente.getNome() << ", Cargo: Gerente, Salário: " << salario << " reais\n";
     }
-    arquivo << "Total de salários de Gerentes: " << totalSalariosGerentes << "\n\n";
+    buffer << "Custo total de Gerentes: " << totalSalariosGerentes << " reais\n\n";
+    totalSalarios += totalSalariosGerentes;
 
-    // Cálculo do total geral de salários
-    totalSalariosGeral = totalSalariosASG + totalSalariosVendedores + totalSalariosGerentes;
-    arquivo << "Total de salários geral: " << totalSalariosGeral << "\n";
+    // Cálculo do faturamento mensal (valor fictício)
+    faturamentoMensal = 10000.0; // Valor fictício
+    buffer << "Faturamento Mensal: " << faturamentoMensal << " reais\n";
 
+    // Cálculo das porcentagens e custo total
+    float porcentagemASG = (totalSalariosASG / totalSalarios) * 100.0;
+    float porcentagemVendedores = (totalSalariosVendedores / totalSalarios) * 100.0;
+    float porcentagemGerentes = (totalSalariosGerentes / totalSalarios) * 100.0;
+    buffer << "Porcentagem de custo de ASGs: " << porcentagemASG << "%\n";
+    buffer << "Porcentagem de custo de Vendedores: " << porcentagemVendedores << "%\n";
+    buffer << "Porcentagem de custo de Gerentes: " << porcentagemGerentes << "%\n\n";
+
+    buffer << "Custo total: " << totalSalarios << " reais\n";
+
+    // Cálculo do lucro
+    float lucro = faturamentoMensal - totalSalarios;
+    buffer << "Lucro: " << lucro << " reais\n";
+    if (lucro >= 0)
+    {
+        buffer << "A empresa obteve lucro.\n";
+    }
+    else
+    {
+        buffer << "A empresa teve prejuízo.\n";
+    }
+
+    std::cout << buffer.str();
+
+    arquivo << buffer.str();
     arquivo.close();
 
-    // Exibição no console
-    ifstream arquivoLido("out/resultados.txt");
-    std::cout << arquivoLido.rdbuf() << endl;
-    arquivoLido.close();
+    buffer.clear();
 }
 
 void Empresa::calcularRescisao(string matricula, Data desligamento)
