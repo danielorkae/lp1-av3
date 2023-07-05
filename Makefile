@@ -12,7 +12,7 @@ BIN_DIR = bin
 
 # Obtém a lista de arquivos fonte e objetos
 SRCS = $(wildcard $(SRC_DIR)/**/*.cpp)
-SRCS += $(SRC_DIR)/*.cpp
+SRCS += $(wildcard $(SRC_DIR)/*.cpp)
 OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRCS))
 EXEC = $(BIN_DIR)/$(PROGRAM)
 
