@@ -198,7 +198,7 @@ void Empresa::carregarFuncoes()
     }
     catch (const exception &ex)
     {
-        cout << "Erro ao executar as funções: " << ex.what() << endl;
+        std::cout << "Erro ao executar as funções: " << ex.what() << endl;
     }
 }
 
@@ -736,7 +736,7 @@ Funcionario *Empresa::buscaFuncionario(string matricula)
         }
     }
 
-    cout << "Funcionário não encontrado no sistema" << endl;
+    std::cout << "Funcionário não encontrado no sistema" << endl;
     return nullptr;
 }
 
@@ -749,7 +749,7 @@ void Empresa::calculaSalarioFuncionario(string matricula)
 
     if (funcionario != nullptr)
     {
-        cout << "Salário: " << funcionario->calcularSalario(0) << endl
+        std::cout << "Salário: " << funcionario->calcularSalario(0) << endl
              << endl;
     }
 }
@@ -803,7 +803,7 @@ void Empresa::calculaTodoOsSalarios()
 
     // Exibição no console
     ifstream arquivoLido("resultados.txt");
-    cout << arquivoLido.rdbuf() << endl;
+    std::cout << arquivoLido.rdbuf() << endl;
     arquivoLido.close();
 }
 
@@ -813,7 +813,7 @@ void Empresa::calcularRescisao(string matricula, Data desligamento)
 
     if (funcionario != nullptr)
     {
-        cout << "Recisão do Funcionário: " << funcionario->calcularRescisao(desligamento) << endl
+        std::cout << "Recisão do Funcionário: " << funcionario->calcularRescisao(desligamento) << endl
              << endl;
     }
 }
@@ -862,7 +862,7 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento)
         }
     }
 
-    if (funcionario != = nullptr)
+    if (funcionario != nullptr)
     {
         salvarVendedores();
     }
@@ -889,7 +889,7 @@ void Empresa::demitirFuncionario(string matricula, Data desligamento)
     }
     else
     {
-        cout << "Funcionário não encontrado no sistema" << endl;
+        std::cout << "Funcionário não encontrado no sistema" << endl;
         return;
     }
 
